@@ -1,0 +1,16 @@
+name = "math-maks-api"
+main = "src/index.js"
+compatibility_date = "2025-09-01"
+workers_dev = true
+
+[vars]
+ADMIN_IDS = "5209413415"
+ALLOWED_ORIGIN = "https://mathmaks4406-maker.github.io"
+
+[[durable_objects.bindings]]
+name = "BOARD"
+class_name = "Board"
+
+[[migrations]]
+tag = "v1"
+new_sqlite_classes = ["Board"]
