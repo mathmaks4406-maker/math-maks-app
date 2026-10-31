@@ -37,10 +37,41 @@ function cors(env) {
 const json = (env, data, status = 200) =>
   new Response(JSON.stringify(data), { status, headers: { "Content-Type": "application/json", ...cors(env) } });
 
+// Бот-тренажёр (@MathMaks_SAT_bot) без своего сервера: Telegram шлёт сюда апдейты (webhook),
+// на любое сообщение в личке отвечаем приветствием и кнопкой Mini App.
+const WELCOME = "👋 Привет! Это <b>Math Maks</b> — тренажёр SAT Math.\n\n" +
+  "368 реальных задач College Board по всем разделам, проверка ответа и разбор на русском.\n\n" +
+  "<b>Как пользоваться:</b>\n" +
+  "1. Нажми «🚀 Открыть тренажёр» ниже (или кнопку «Тренажёр» слева от поля ввода).\n" +
+  "2. Впиши имя — под ним сохранятся прогресс и место в рейтинге.\n" +
+  "3. Выбери раздел и тему, решай и смотри разбор.\n\n" +
+  "Задача дня и приёмы SAT Math — в канале @Math_Maks";
+
+async function hookSecret(token) {
+  return hex(new Uint8Array(await crypto.subtle.digest("SHA-256", enc.encode(token)))).slice(0, 40);
+}
+
+async function telegramHook(req, env) {
+  if (!env.BOT_TOKEN_SAT || req.headers.get("X-Telegram-Bot-Api-Secret-Token") !== await hookSecret(env.BOT_TOKEN_SAT))
+    return new Response("forbidden", { status: 403 });
+  let upd;
+  try { upd = await req.json(); } catch { return new Response("ok"); }
+  const msg = upd.message;
+  if (msg && msg.chat && msg.chat.type === "private") {
+    await fetch(`https://api.telegram.org/bot${env.BOT_TOKEN_SAT}/sendMessage`, {
+      method: "POST", headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ chat_id: msg.chat.id, text: WELCOME, parse_mode: "HTML",
+        reply_markup: { inline_keyboard: [[{ text: "🚀 Открыть тренажёр", web_app: { url: env.TRAINER_URL } }]] } }),
+    });
+  }
+  return new Response("ok");
+}
+
 export default {
   async fetch(req, env) {
     if (req.method === "OPTIONS") return new Response(null, { headers: cors(env) });
     const url = new URL(req.url);
+    if (req.method === "POST" && url.pathname === "/tg/hook") return telegramHook(req, env);
     if (req.method !== "POST" || !url.pathname.startsWith("/api/")) return json(env, { ok: true, service: "math-maks-api" });
     let body;
     try { body = await req.json(); } catch { return json(env, { error: "bad json" }, 400); }

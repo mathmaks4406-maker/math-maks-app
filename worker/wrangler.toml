@@ -6,6 +6,7 @@ workers_dev = true
 [vars]
 ADMIN_IDS = "5209413415"
 ALLOWED_ORIGIN = "https://mathmaks4406-maker.github.io"
+TRAINER_URL = "https://mathmaks4406-maker.github.io/math-maks-app/"
 
 [[durable_objects.bindings]]
 name = "BOARD"
