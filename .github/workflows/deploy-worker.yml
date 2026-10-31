@@ -16,5 +16,7 @@ jobs:
           workingDirectory: worker
           secrets: |
             BOT_TOKEN
+            BOT_TOKEN_SAT
         env:
           BOT_TOKEN: ${{ secrets.BOT_TOKEN }}
+          BOT_TOKEN_SAT: ${{ secrets.BOT_TOKEN_SAT }}

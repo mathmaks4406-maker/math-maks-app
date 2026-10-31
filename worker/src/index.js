@@ -44,7 +44,7 @@ export default {
     if (req.method !== "POST" || !url.pathname.startsWith("/api/")) return json(env, { ok: true, service: "math-maks-api" });
     let body;
     try { body = await req.json(); } catch { return json(env, { error: "bad json" }, 400); }
-    const user = await checkInitData(body.initData, env.BOT_TOKEN);
+    const user = await checkInitData(body.initData, env.BOT_TOKEN) || await checkInitData(body.initData, env.BOT_TOKEN_SAT);
     if (!user || !user.id) return json(env, { error: "unauthorized" }, 401);
     const admins = String(env.ADMIN_IDS || "").split(/[,\s]+/).filter(Boolean).map(Number);
     const stub = env.BOARD.get(env.BOARD.idFromName("main"));
