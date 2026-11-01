@@ -61,7 +61,10 @@ async function telegramHook(req, env) {
     await fetch(`https://api.telegram.org/bot${env.BOT_TOKEN_SAT}/sendMessage`, {
       method: "POST", headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ chat_id: msg.chat.id, text: WELCOME, parse_mode: "HTML",
-        reply_markup: { inline_keyboard: [[{ text: "🚀 Открыть тренажёр", web_app: { url: env.TRAINER_URL } }]] } }),
+        reply_markup: { inline_keyboard: [
+          [{ text: "🚀 Открыть тренажёр", web_app: { url: env.TRAINER_URL } }],
+          [{ text: "🎓 Интенсив к SAT 5 декабря", url: env.KURS_URL || "https://mathmaks4406-maker.github.io/math-maks-app/kurs.html" }],
+        ] } }),
     });
   }
   return new Response("ok");

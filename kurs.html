@@ -1,0 +1,180 @@
+<!doctype html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Интенсив SAT Math к 5 декабря — Math Maks</title>
+<meta name="description" content="25 дней до SAT: живые занятия, 47 приёмов Desmos, 262 задачи с разборами, 2 пробника. Готовит преподаватель с 800/800.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800&display=swap">
+<style>
+:root{--blue:#1f5fe0;--navy:#0b2a6f;--ink:#14181f;--muted:#5b6472;--line:#e6e8ec;--bg:#fff;--soft:#f5f6f8;--yellow:#ffd43b}
+*{box-sizing:border-box}
+html,body{margin:0}
+body{font-family:Montserrat,system-ui,-apple-system,"Segoe UI",sans-serif;color:var(--ink);background:var(--bg);line-height:1.5}
+.wrap{max-width:720px;margin:0 auto;padding:0 16px}
+.hero{background:linear-gradient(135deg,#0b2a6f 0%,#1f5fe0 60%,#3b82f6 100%);color:#fff;padding:36px 0 32px}
+.brand{display:inline-block;background:#fff;color:var(--blue);font-weight:800;letter-spacing:.06em;font-size:12px;padding:6px 10px;border-radius:8px}
+.kicker{margin:18px 0 6px;font-size:12px;letter-spacing:.14em;text-transform:uppercase;opacity:.85}
+h1{margin:0 0 12px;font-size:clamp(26px,6vw,40px);line-height:1.12;font-weight:800}
+.hero p{margin:0 0 18px;font-size:16px;opacity:.95;max-width:560px}
+.count{display:inline-flex;gap:10px;align-items:baseline;background:rgba(255,255,255,.14);padding:10px 14px;border-radius:12px;margin-bottom:18px}
+.count b{font-size:28px}
+.btn{display:inline-block;background:var(--yellow);color:#1a1a1a;font-weight:800;padding:14px 22px;border-radius:12px;text-decoration:none;font-size:16px}
+.btn.sec{background:#fff;color:var(--blue)}
+section{padding:28px 0;border-bottom:1px solid var(--line)}
+h2{font-size:22px;margin:0 0 14px;color:var(--navy)}
+.cards{display:grid;grid-template-columns:1fr;gap:12px}
+@media(min-width:600px){.cards{grid-template-columns:1fr 1fr}}
+.card{background:var(--soft);border:1px solid var(--line);border-radius:14px;padding:16px}
+.card h3{margin:0 0 6px;font-size:16px;color:var(--blue)}
+.card p,.card li{margin:0;font-size:14px;color:var(--ink)}
+.card ul{margin:0;padding-left:18px}
+table{width:100%;border-collapse:collapse;font-size:14px}
+th,td{padding:9px 8px;border-bottom:1px solid var(--line);text-align:left;vertical-align:top}
+th{color:var(--muted);font-weight:600;font-size:12px;letter-spacing:.04em;text-transform:uppercase}
+.tariffs{display:grid;grid-template-columns:1fr;gap:14px}
+@media(min-width:600px){.tariffs{grid-template-columns:1fr 1fr}}
+.tariff{border:2px solid var(--line);border-radius:16px;padding:20px}
+.tariff.hot{border-color:var(--blue);position:relative}
+.tariff.hot:before{content:"Выбор большинства";position:absolute;top:-11px;left:16px;background:var(--blue);color:#fff;font-size:11px;font-weight:700;padding:3px 10px;border-radius:999px}
+.tariff h3{margin:0 0 6px;font-size:18px}
+.price{font-size:28px;font-weight:800;color:var(--navy)}
+.price s{font-size:16px;color:var(--muted);font-weight:500;margin-left:8px}
+.price small{display:block;font-size:12px;color:var(--muted);font-weight:500}
+.tariff ul{padding-left:18px;margin:12px 0;font-size:14px}
+.tariff .btn{width:100%;text-align:center;margin-top:6px}
+.promise{display:flex;gap:10px;align-items:flex-start;margin:10px 0;font-size:15px}
+.promise span{flex:none;width:26px;height:26px;border-radius:50%;background:#e8efff;color:var(--blue);display:inline-flex;align-items:center;justify-content:center;font-weight:800;font-size:14px}
+.faq details{border-bottom:1px solid var(--line);padding:10px 0}
+.faq summary{cursor:pointer;font-weight:600}
+.faq p{margin:8px 0 0;color:var(--muted);font-size:14px}
+footer{padding:26px 0 40px;color:var(--muted);font-size:13px}
+.note{background:#fff8e1;border-left:4px solid var(--yellow);padding:10px 14px;border-radius:0 10px 10px 0;font-size:14px;margin-top:14px}
+</style>
+</head>
+<body>
+<header class="hero"><div class="wrap">
+ <span class="brand">MATH MAKS</span>
+ <div class="kicker">Интенсив SAT Math · 9 ноября — 5 декабря</div>
+ <h1>25 дней до SAT. Успеваем.</h1>
+ <p>Живые занятия с преподавателем 800/800, приёмы Desmos, которые решают задачи за 20 секунд, 262 задачи с разборами и два пробника. Только то, что реально поднимает балл за месяц.</p>
+ <div class="count">До экзамена <b id="days">—</b> дней</div><br>
+ <a class="btn" id="cta1" href="#tarify">Записаться</a>
+</div></header>
+
+<section><div class="wrap">
+ <h2>Для кого</h2>
+ <div class="cards">
+  <div class="card"><h3>Сдаёшь 5 декабря</h3><p>Уже знаешь базу, но теряешь баллы на ловушках и времени. За 4 недели закроем самые частые темы и научим считать в Desmos вместо руки.</p></div>
+  <div class="card"><h3>Сдаёшь в марте</h3><p>Материалы и записи остаются навсегда. Пройдёшь интенсив сейчас, в марте — повторишь по плану и пробникам.</p></div>
+ </div>
+ <div class="note">Не подходит, если математику нужно начинать с нуля: за 25 дней честно это не сделать. Для такого случая будет отдельный курс к мартовскому SAT.</div>
+</div></section>
+
+<section><div class="wrap">
+ <h2>Кто ведёт</h2>
+ <p>Макс, SAT Math <b>800/800</b>. Ученики с нуля выходят на 600+, лучший результат 730. Автор канала <a href="https://t.me/Math_Maks">@Math_Maks</a> и Shorts про приёмы SAT Math.</p>
+</div></section>
+
+<section><div class="wrap">
+ <h2>Программа: 11 живых занятий</h2>
+ <table>
+  <tr><th>Дата</th><th>Тема</th></tr>
+  <tr><td>9 ноя</td><td>Диагностика, основы Desmos, тильда ~, линейные уравнения и системы</td></tr>
+  <tr><td>11 ноя</td><td>Линейные функции, неравенства, word problems</td></tr>
+  <tr><td>13 ноя</td><td>Квадратичные: вершина, нули, дискриминант, «exactly one solution»</td></tr>
+  <tr><td>16 ноя</td><td>Экспонента, полиномы, сдвиги графиков, equivalent expressions</td></tr>
+  <tr><td>18 ноя</td><td>Проценты, пропорции, единицы, mean/median/SD</td></tr>
+  <tr><td>20 ноя</td><td>Вероятность, scatterplot, margin of error · пробник 1</td></tr>
+  <tr><td>23 ноя</td><td>Разбор пробника 1 по ошибкам группы</td></tr>
+  <tr><td>25 ноя</td><td>Геометрия: треугольники, подобие, окружности, площадь и объём</td></tr>
+  <tr><td>27 ноя</td><td>Тригонометрия, уравнение окружности · пробник 2</td></tr>
+  <tr><td>30 ноя</td><td>Разбор пробника 2, тайминг Module 2 hard</td></tr>
+  <tr><td>2 дек</td><td>Топ-20 задач декабрьского SAT, grid-in, стратегия дня экзамена</td></tr>
+  <tr><td>4 дек</td><td>Q&amp;A накануне экзамена</td></tr>
+ </table>
+ <p style="color:var(--muted);font-size:14px">Занятия по 90 минут, три раза в неделю вечером (Ташкент), в видеочате закрытой группы Telegram. Запись каждого занятия — в тот же вечер.</p>
+</div></section>
+
+<section id="tarify"><div class="wrap">
+ <h2>Тарифы</h2>
+ <div class="tariffs">
+  <div class="tariff">
+   <h3>📘 Материалы</h3>
+   <div class="price"><span id="p-mat">290 000</span> сум<s id="f-mat">390 000</s><small id="e-mat">ранняя цена до 8 ноября</small></div>
+   <ul>
+    <li>Desmos Guide: 52 страницы, 47 приёмов</li>
+    <li>Практикум к Desmos: 8 задач на приём</li>
+    <li>Шпаргалка SAT Math и «30 ловушек»</li>
+    <li>План подготовки на 4 недели по дням</li>
+    <li>Тренажёр: 262 задачи College Board с разборами</li>
+    <li>Записи всех 11 занятий</li>
+    <li>Чат участников</li>
+   </ul>
+   <a class="btn sec" href="#" data-cta>Выбрать</a>
+  </div>
+  <div class="tariff hot">
+   <h3>🎓 Материалы + онлайн-уроки</h3>
+   <div class="price"><span id="p-grp">590 000</span> сум<s id="f-grp">790 000</s><small id="e-grp">ранняя цена до 8 ноября · набор до 13 ноября</small></div>
+   <ul>
+    <li>Всё из тарифа «Материалы»</li>
+    <li>11 живых занятий, можно задавать вопросы прямо на уроке</li>
+    <li>2 пробника Bluebook с разбором ошибок</li>
+    <li>Вопросы в чате, ответ в течение 24 часов</li>
+    <li>Q&amp;A накануне экзамена</li>
+   </ul>
+   <a class="btn" href="#" data-cta>Записаться</a>
+  </div>
+ </div>
+ <p style="font-size:14px;color:var(--muted);margin-top:12px">Оплата переводом на карту, подтверждение в боте. Привёл друга — минус 100 000 сум каждому.</p>
+</div></section>
+
+<section><div class="wrap">
+ <h2>Что обещаем</h2>
+ <div class="promise"><span>1</span>11 живых занятий по 90 минут с преподавателем 800/800, записи остаются у тебя навсегда.</div>
+ <div class="promise"><span>2</span>47 приёмов Desmos, 30 ловушек, 262 задачи с разборами, 2 пробника с разбором.</div>
+ <div class="promise"><span>3</span>Ответ на вопрос в чате в течение 24 часов.</div>
+ <div class="promise"><span>4</span>Не подошло — возврат 100 % до второго занятия, без объяснений.</div>
+ <p style="font-size:14px;color:var(--muted)">Гарантии балла не даём: балл зависит от того, сколько ты сделаешь. Даём план, по которому это получается, и человека, который ответит на каждый вопрос.</p>
+</div></section>
+
+<section class="faq"><div class="wrap">
+ <h2>Вопросы</h2>
+ <details><summary>Как проходят занятия?</summary><p>В видеочате закрытой группы Telegram: экран с Bluebook и Desmos, голос преподавателя, вопросы в чате. Ничего ставить не нужно.</p></details>
+ <details><summary>Не могу быть на занятии в прямом эфире</summary><p>Запись появляется в группе в тот же вечер. Вопросы по записи — в чат, ответ в течение 24 часов.</p></details>
+ <details><summary>Как оплатить?</summary><p>Нажми «Записаться», выбери тариф в боте — он покажет карту и сумму. После перевода пришли боту скрин, и после подтверждения он сам отправит материалы и ссылку в группу.</p></details>
+ <details><summary>Я ещё не зарегистрирован на 5 декабря</summary><p>Проверь дедлайн регистрации на сайте College Board. Если не успеваешь — материалы и записи подходят и для мартовского SAT.</p></details>
+ <details><summary>Что за Desmos?</summary><p>Встроенный в SAT графический калькулятор. Большинство задач Math решаются в нём за 20–30 секунд без выкладок, если знать приёмы. Этому и учим.</p></details>
+</div></section>
+
+<footer><div class="wrap">Math Maks · <a href="https://t.me/Math_Maks">Telegram</a> · вопросы: <a href="https://t.me/Anvarmaks">@Anvarmaks</a></div></footer>
+
+<script>
+// Ссылка на бота с курсом. Пока пусто — кнопки ведут к Максу в личку.
+var BOT = "";
+var EARLY_UNTIL = new Date("2026-11-08T23:59:59+05:00");
+var GROUP_UNTIL = new Date("2026-11-13T23:59:59+05:00");
+var EXAM = new Date("2026-12-05T08:00:00+05:00");
+var link = BOT ? "https://t.me/" + BOT + "?start=kurs" : "https://t.me/Anvarmaks";
+document.querySelectorAll("[data-cta]").forEach(function(a){ a.href = link; });
+document.getElementById("cta1").href = link;
+var now = new Date();
+var days = Math.max(0, Math.ceil((EXAM - now) / 864e5));
+document.getElementById("days").textContent = days;
+function fmt(n){ return String(n).replace(/\B(?=(\d{3})+(?!\d))/g, " "); }
+if (now > EARLY_UNTIL) {
+  document.getElementById("p-mat").textContent = fmt(390000);
+  document.getElementById("p-grp").textContent = fmt(790000);
+  ["f-mat","f-grp","e-mat"].forEach(function(id){ document.getElementById(id).style.display = "none"; });
+  document.getElementById("e-grp").textContent = "набор до 13 ноября";
+}
+if (now > GROUP_UNTIL) {
+  var hot = document.querySelector(".tariff.hot");
+  hot.querySelector(".price").innerHTML = "Набор закрыт";
+  hot.querySelector("[data-cta]").style.display = "none";
+  hot.style.opacity = ".6";
+}
+</script>
+</body>
+</html>
