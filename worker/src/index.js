@@ -94,6 +94,10 @@ export class Board extends DurableObject {
       created INTEGER, last INTEGER)`);
     this.sql.exec(`CREATE TABLE IF NOT EXISTS results(
       uid INTEGER, task INTEGER, n INTEGER, ok INTEGER, last INTEGER, PRIMARY KEY(uid, task))`);
+    // журнал попыток — для рейтинга за неделю
+    this.sql.exec(`CREATE TABLE IF NOT EXISTS attempts(uid INTEGER, task INTEGER, ok INTEGER, ts INTEGER)`);
+    this.sql.exec(`CREATE INDEX IF NOT EXISTS attempts_ts ON attempts(ts)`);
+    try { this.sql.exec(`ALTER TABLE users ADD COLUMN streak INTEGER DEFAULT 0`); } catch (e) {}
   }
 
   upsertUser(u, name) {
@@ -105,16 +109,23 @@ export class Board extends DurableObject {
   }
 
   board(meId) {
-    const rows = this.sql.exec(`SELECT u.uid, u.name, u.hidden,
+    const rows = this.sql.exec(`SELECT u.uid, u.name, u.hidden, u.streak,
         COALESCE(SUM(CASE WHEN r.ok > 0 THEN 1 ELSE 0 END), 0) AS solved,
         COALESCE(SUM(r.n), 0) AS tries
       FROM users u LEFT JOIN results r ON r.uid = u.uid
       GROUP BY u.uid ORDER BY solved DESC, tries ASC`).toArray();
-    const visible = rows.filter(r => !r.hidden && r.solved > 0);
-    const top = visible.slice(0, 20).map((r, i) => ({ place: i + 1, name: r.name, solved: r.solved, tries: r.tries, me: r.uid === meId }));
-    const myIdx = visible.findIndex(r => r.uid === meId);
-    const me = myIdx >= 0 ? { place: myIdx + 1, solved: visible[myIdx].solved } : null;
-    return { top, me, total: visible.length };
+    const since = Date.now() - 7 * 86400e3;
+    const wk = this.sql.exec(`SELECT uid, COUNT(DISTINCT task) AS solved, COUNT(*) AS tries FROM attempts WHERE ts > ? AND ok = 1 GROUP BY uid`, since).toArray();
+    const wkTries = this.sql.exec(`SELECT uid, COUNT(*) AS tries FROM attempts WHERE ts > ? GROUP BY uid`, since).toArray();
+    const byUid = Object.fromEntries(rows.map(r => [r.uid, r]));
+    const mk = (list, key) => {
+      const visible = list.filter(r => byUid[r.uid] && !byUid[r.uid].hidden && r.solved > 0).sort((a, b) => b.solved - a.solved || a.tries - b.tries);
+      const top = visible.slice(0, 20).map((r, i) => ({ place: i + 1, name: byUid[r.uid].name, solved: r.solved, tries: r.tries, streak: byUid[r.uid].streak || 0, me: r.uid === meId }));
+      const myIdx = visible.findIndex(r => r.uid === meId);
+      return { top, me: myIdx >= 0 ? { place: myIdx + 1, solved: visible[myIdx].solved } : null, total: visible.length };
+    };
+    const all = mk(rows), week = mk(wk.map(w => ({ uid: w.uid, solved: w.solved, tries: (wkTries.find(x => x.uid === w.uid) || {}).tries || w.tries })));
+    return { top: all.top, me: all.me, total: all.total, week: week.top, meWeek: week.me, weekTotal: week.total };
   }
 
   async handle(path, body, u, isAdmin) {
@@ -128,13 +139,20 @@ export class Board extends DurableObject {
           ON CONFLICT(uid, task) DO UPDATE SET n = excluded.n, ok = excluded.ok, last = excluded.last`,
           u.id, p[0], Math.min(p[1], 999), Math.min(p[2], 999), p[3] ? 1 : 0);
       }
+      const ev = Array.isArray(body.ev) ? body.ev.slice(0, 300) : [];
+      const now = Date.now();
+      for (const e of ev) {
+        if (!Array.isArray(e) || !(e[0] > 0) || !Number.isFinite(e[2])) continue;
+        this.sql.exec(`INSERT INTO attempts(uid, task, ok, ts) VALUES(?, ?, ?, ?)`, u.id, Number(e[0]), e[1] ? 1 : 0, Math.min(Number(e[2]), now));
+      }
+      if (Number.isFinite(body.streak)) this.sql.exec(`UPDATE users SET streak = ? WHERE uid = ?`, Math.max(0, Math.min(9999, Number(body.streak))), u.id);
       return { ...this.board(u.id), admin: isAdmin };
     }
     if (path === "/api/board") return { ...this.board(u.id), admin: isAdmin };
 
     if (!isAdmin) return { error: "forbidden" };
     if (path === "/api/admin/users") {
-      const users = this.sql.exec(`SELECT uid, name, username, hidden, created, last FROM users ORDER BY last DESC`).toArray();
+      const users = this.sql.exec(`SELECT uid, name, username, hidden, created, last, streak FROM users ORDER BY last DESC`).toArray();
       const res = this.sql.exec(`SELECT uid, task, n, ok, last FROM results`).toArray();
       const by = {};
       for (const r of res) (by[r.uid] ||= []).push([r.task, r.n, r.ok, r.last]);
@@ -150,6 +168,7 @@ export class Board extends DurableObject {
     }
     if (path === "/api/admin/delete") {
       this.sql.exec(`DELETE FROM results WHERE uid = ?`, Number(body.uid));
+      this.sql.exec(`DELETE FROM attempts WHERE uid = ?`, Number(body.uid));
       this.sql.exec(`DELETE FROM users WHERE uid = ?`, Number(body.uid));
       return { ok: true };
     }
