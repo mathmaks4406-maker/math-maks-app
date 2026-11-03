@@ -184,6 +184,20 @@ sup{font-size:.7em;line-height:0}
 .sheet .sh-h{display:flex;gap:8px;align-items:center;margin-bottom:8px}
 .sheet .sh-h .seg{flex:1;margin:0}
 .sheet .sh-b{flex:1;overflow:auto;min-height:0;position:relative}
+.rgrid{display:grid;grid-template-columns:repeat(2,1fr);gap:10px}
+.rc{border:1px solid var(--line);border-radius:12px;padding:8px 6px 6px;text-align:center;background:var(--bg)}
+.rc.wide{grid-column:1/3}
+.rc svg{width:100%;height:auto;max-height:110px;stroke:var(--ink);fill:var(--acc);fill-opacity:.1;stroke-width:1.4;stroke-linejoin:round}
+.rc.wide svg{max-height:100px}
+.rc svg line,.rc svg path,.rc svg polyline{fill:none}
+.rc svg .d{stroke-dasharray:3 3}
+.rc svg .t{stroke-width:1.1}
+.rc svg text{fill:var(--ink);fill-opacity:1;stroke:none;font:italic 11px "Times New Roman",serif}
+.rc svg text.a{font:9px -apple-system,sans-serif}
+.rc p{margin:4px 0 0;font-size:15px;font-weight:600}
+.ref .note{font-size:13px;color:var(--mut);margin:12px 0 4px;line-height:1.5}
+.more{margin-top:12px;border-top:1px solid var(--line);padding-top:8px}
+.more summary{font-weight:700;cursor:pointer;padding:6px 0}
 .ref h3{font-size:14px;color:var(--mut);text-transform:uppercase;letter-spacing:.04em;margin:14px 0 6px}
 .ref h3:first-child{margin-top:0}
 .ref p{margin:0 0 7px;font-size:15px}
@@ -737,14 +751,10 @@ $("v-test").addEventListener("click", e => {
 /* ---------- tools sheet: formulas, scratch pad, Desmos ---------- */
 let TOOL = "ref";
 const REF = `<div class="ref">
-<p class="tip">Всё, что ниже в разделе «Reference», на экзамене есть по кнопке. Но знать наизусть быстрее.</p>
-<h3>Reference (дают на SAT)</h3>
-<p><b>Круг:</b> A = πr², C = 2πr. Дуга и сектор: доля = угол/360°.</p>
-<p><b>Прямоугольник:</b> A = lw. <b>Треугольник:</b> A = (1/2)bh.</p>
-<p><b>Пифагор:</b> a² + b² = c². Тройки: 3-4-5, 5-12-13, 8-15-17, 7-24-25.</p>
-<p><b>Особые треугольники:</b> 45°-45°-90° → x, x, x√2. 30°-60°-90° → x, x√3, 2x.</p>
-<p><b>Объёмы:</b> призма/цилиндр V = (площадь основания)·h; цилиндр V = πr²h; шар V = (4/3)πr³; конус V = (1/3)πr²h; пирамида V = (1/3)·S·h.</p>
-<p>Сумма углов треугольника 180°, многоугольника с n сторонами 180°(n−2). В окружности 360°, 2π радиан; радианы = градусы·π/180.</p>
+<p class="tip">Reference — то же, что по кнопке «Reference» в Bluebook.</p>
+<div class="rgrid"><div class="rc"><svg viewBox="0 0 120 90"><circle cx="60" cy="45" r="32"/><circle cx="60" cy="45" r="1.8" fill="currentColor"/><line x1="60" y1="45" x2="92" y2="45"/><text x="72" y="40">r</text></svg><p>A = πr²<br>C = 2πr</p></div><div class="rc"><svg viewBox="0 0 120 90"><rect x="20" y="22" width="80" height="48"/><text x="58" y="84">ℓ</text><text x="105" y="50">w</text></svg><p>A = ℓw</p></div><div class="rc"><svg viewBox="0 0 120 90"><polygon points="12,76 108,76 52,16"/><line x1="52" y1="16" x2="52" y2="76" class="d"/><polyline points="52,70 58,70 58,76" class="t"/><text x="58" y="88">b</text><text x="40" y="50">h</text></svg><p>A = <span class="fr"><span>1</span><span>2</span></span>bh</p></div><div class="rc"><svg viewBox="0 0 120 90"><polygon points="18,76 102,76 102,16"/><polyline points="94,76 94,68 102,68" class="t"/><text x="58" y="88">a</text><text x="106" y="50">b</text><text x="48" y="42">c</text></svg><p>c² = a² + b²</p></div><div class="rc wide"><svg viewBox="0 0 240 90"><polygon points="12,78 82,78 82,18"/><polyline points="75,78 75,71 82,71" class="t"/><text x="14" y="74"class="a">45°</text><text x="70" y="28"class="a">45°</text><text x="44" y="88">x</text><text x="86" y="52">x</text><text x="28" y="44">x√2</text><polygon points="125,78 228,78 228,18"/><polyline points="221,78 221,71 228,71" class="t"/><text x="128" y="74"class="a">30°</text><text x="213" y="30"class="a">60°</text><text x="172" y="88">x√3</text><text x="231" y="52">x</text><text x="160" y="42">2x</text></svg><p>Special right triangles</p></div><div class="rc"><svg viewBox="0 0 120 90"><polygon points="22,38 78,38 78,80 22,80"/><polygon points="22,38 44,20 100,20 78,38"/><polygon points="78,38 100,20 100,62 78,80"/><text x="46" y="89">ℓ</text><text x="92" y="76">w</text><text x="104" y="52">h</text></svg><p>V = ℓwh</p></div><div class="rc"><svg viewBox="0 0 120 90"><ellipse cx="60" cy="24" rx="34" ry="10"/><line x1="26" y1="24" x2="26" y2="70"/><line x1="94" y1="24" x2="94" y2="70"/><path d="M26 70a34 10 0 0 0 68 0"/><path d="M26 70a34 10 0 0 1 68 0" class="d"/><line x1="60" y1="24" x2="94" y2="24"/><text x="74" y="20">r</text><text x="99" y="50">h</text></svg><p>V = πr²h</p></div><div class="rc"><svg viewBox="0 0 120 90"><circle cx="60" cy="45" r="33"/><path d="M27 45a33 11 0 0 0 66 0"/><path d="M27 45a33 11 0 0 1 66 0" class="d"/><circle cx="60" cy="45" r="1.8" fill="currentColor"/><line x1="60" y1="45" x2="93" y2="45"/><text x="72" y="40">r</text></svg><p>V = <span class="fr"><span>4</span><span>3</span></span>πr³</p></div><div class="rc"><svg viewBox="0 0 120 90"><path d="M26 72L60 12L94 72"/><path d="M26 72a34 10 0 0 0 68 0"/><path d="M26 72a34 10 0 0 1 68 0" class="d"/><line x1="60" y1="12" x2="60" y2="72" class="d"/><line x1="60" y1="72" x2="94" y2="72"/><text x="74" y="82">r</text><text x="63" y="48">h</text></svg><p>V = <span class="fr"><span>1</span><span>3</span></span>πr²h</p></div><div class="rc"><svg viewBox="0 0 120 90"><polygon points="20,74 84,74 108,60 46,60" /><polygon points="20,74 62,12 84,74"/><line x1="84" y1="74" x2="108" y2="60"/><line x1="62" y1="12" x2="108" y2="60"/><line x1="62" y1="12" x2="64" y2="67" class="d"/><text x="48" y="86">ℓ</text><text x="98" y="74">w</text><text x="66" y="44">h</text></svg><p>V = <span class="fr"><span>1</span><span>3</span></span>ℓwh</p></div></div>
+<p class="note">The number of degrees of arc in a circle is 360.<br>The number of radians of arc in a circle is 2π.<br>The sum of the measures in degrees of the angles of a triangle is 180.</p>
+<details class="more"><summary>Приёмы Math Maks (чего нет в Reference)</summary>
 <h3>Algebra</h3>
 <p><b>Наклон:</b> m = (y₂−y₁)/(x₂−x₁). Прямая: y = mx + b; через точку: y − y₁ = m(x − x₁).</p>
 <p>Параллельные прямые: одинаковый m. Перпендикулярные: m₁·m₂ = −1.</p>
@@ -773,6 +783,7 @@ const REF = `<div class="ref">
 <p>Длина дуги = (θ/360°)·2πr, площадь сектора = (θ/360°)·πr². Масштаб длины k → площадь k², объём k³.</p>
 <h3>Desmos за 10 секунд</h3>
 <p>Система уравнений — введи оба, точка пересечения = ответ. Корни — введи y = …, нажми на серые точки. «Сколько решений» — считай пересечения. Вершина, max/min — тоже серые точки. Таблица данных: кнопка «+» → table, затем y₁ ~ mx₁ + b даёт регрессию (среднее, медиана через mean(), median()).</p>
+</details>
 </div>`;
 let SCR = {}, scrColor = "#1d4ed8";
 function openSheet(tool){
