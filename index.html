@@ -208,7 +208,6 @@ sup{font-size:.7em;line-height:0}
 .scr-bar .btn.sm{min-height:34px}
 .scr-bar .col{width:34px;height:34px;border-radius:50%;border:3px solid var(--card);box-shadow:0 0 0 1px var(--line)}
 .scr-bar .col.on{box-shadow:0 0 0 2px var(--acc)}
-#desmosBox{width:100%;height:100%;min-height:380px;border-radius:12px;overflow:hidden;background:#fff}
 .dayz{display:flex;gap:4px;align-items:flex-end;height:64px;margin:8px 0 2px}
 .dayz i{flex:1;display:block;background:var(--acc2);border-radius:4px 4px 0 0;min-height:3px;position:relative}
 .dayz i.t{background:var(--grad)}
@@ -250,7 +249,7 @@ sup{font-size:.7em;line-height:0}
 </nav>
 <div class="toast" id="toast"></div>
 <div class="sheet" id="sheet" hidden><div class="bg" data-close="1"></div><div class="sh">
-  <div class="sh-h"><div class="seg"><button data-tool="ref" type="button">Формулы</button><button data-tool="scr" type="button">Черновик</button><button data-tool="calc" type="button">Desmos</button></div><button class="ib" data-close="1" type="button" aria-label="Закрыть"><svg viewBox="0 0 24 24"><path d="M6 6l12 12M18 6L6 18"/></svg></button></div>
+  <div class="sh-h"><div class="seg"><button data-tool="ref" type="button">Формулы</button><button data-tool="scr" type="button">Черновик</button></div><button class="ib" data-close="1" type="button" aria-label="Закрыть"><svg viewBox="0 0 24 24"><path d="M6 6l12 12M18 6L6 18"/></svg></button></div>
   <div class="sh-b" id="shBody"></div>
 </div></div>
 
@@ -605,7 +604,7 @@ function taskHtml(t, g, opts){
 }
 const CUT = {}, HINT = new Set();
 const firstLine = t => { const e = Array.isArray(t.e) ? t.e : String(t.e || "").split("\n"); return (e.find(l => l.trim()) || "Подумай, какой раздел это проверяет.").trim().replace(/^Ответ\s*:.*$/i, "Подумай, какой раздел это проверяет."); };
-const TOOLS_BTN = `<button class="ib" id="tools" type="button" aria-label="Формулы, черновик, Desmos"><svg viewBox="0 0 24 24"><rect x="4" y="2" width="16" height="20" rx="2"/><path d="M8 6h8M8 11h2M12 11h2M16 11h0M8 15h2M12 15h2M16 15v4M8 19h2M12 19h2"/></svg></button>`;
+const TOOLS_BTN = `<button class="ib" id="tools" type="button" aria-label="Формулы и черновик"><svg viewBox="0 0 24 24"><rect x="4" y="2" width="16" height="20" rx="2"/><path d="M8 6h8M8 11h2M12 11h2M16 11h0M8 15h2M12 15h2M16 15v4M8 19h2M12 19h2"/></svg></button>`;
 function renderTask(){
   const box = $("task"); if (!box) return;
   const g0 = cur ? given[cur.id] : null;
@@ -676,7 +675,7 @@ let T = null; // {qs, i, ans:{}, flags:Set, start, end, len, timer}
 function renderTest(){
   const box = $("v-test");
   if (!T) {
-    box.innerHTML = `<div class="card"><h2>Тест как на SAT</h2><p class="muted" style="margin:0 0 12px">Без подсказок, разбор после финиша. Пропорции тем как на экзамене: Algebra 35%, Advanced 35%, Data 15%, Geometry 15%. «Модуль» — это настоящий модуль Digital SAT: 22 задачи за 35 минут. Формулы, черновик и Desmos — по кнопке, как в Bluebook.</p>
+    box.innerHTML = `<div class="card"><h2>Тест как на SAT</h2><p class="muted" style="margin:0 0 12px">Без подсказок, разбор после финиша. Пропорции тем как на экзамене: Algebra 35%, Advanced 35%, Data 15%, Geometry 15%. «Модуль» — это настоящий модуль Digital SAT: 22 задачи за 35 минут. Формулы и черновик — по кнопке, как в Bluebook.</p>
       <div class="row" style="margin-bottom:10px"><span class="grow">Задач</span>${[5,10,22].map(n => `<button class="chip ${(S.tlen || 10) === n ? "on" : ""}" data-tlen="${n}" type="button">${n === 22 ? "Модуль 22" : n}</button>`).join("")}</div>
       <select id="tDom"><option value="">Все разделы</option>${DOMAINS.map(d => `<option value="${d.k}" ${S.tdom === d.k ? "selected" : ""}>${d.n}</option>`).join("")}</select>
       <button class="btn wide" style="margin-top:14px" id="tStart">Начать тест</button></div>` + (S.tests && S.tests.length ? `<div class="card"><h2>Прошлые тесты</h2>${S.tests.slice(-8).reverse().map(x => `<div class="row" style="padding:6px 0;border-bottom:1px solid var(--line)"><span class="grow">${new Date(x.t).toLocaleDateString("ru")} · ${x.n} задач</span><b>${x.ok}/${x.n}</b><span class="muted">${fmtTime(x.sec)}</span></div>`).join("")}</div>` : "");
@@ -748,7 +747,7 @@ $("v-test").addEventListener("click", e => {
   const k = e.target.closest(".keys button"); if (k) { keyPress(k.dataset.k); return; }
 });
 
-/* ---------- tools sheet: formulas, scratch pad, Desmos ---------- */
+/* ---------- tools sheet: formulas, scratch pad ---------- */
 let TOOL = "ref";
 const REF = `<div class="ref">
 <p class="tip">Reference — то же, что по кнопке «Reference» в Bluebook.</p>
@@ -797,7 +796,6 @@ function renderSheet(){
   const b = $("shBody");
   if (TOOL === "ref") { b.innerHTML = REF; return; }
   if (TOOL === "scr") { b.innerHTML = `<div class="scr-bar">${["#1d4ed8","#b91c1c","#15803d"].map(c => `<button class="col ${scrColor === c ? "on" : ""}" style="background:${c}" data-col="${c}" type="button" aria-label="Цвет"></button>`).join("")}<span class="grow"></span><button class="btn sm ghost" type="button" id="scrUndo">↶ Отменить</button><button class="btn sm ghost" type="button" id="scrClear">Очистить</button></div><div style="height:calc(100% - 44px)"><canvas id="scr"></canvas></div>`; initScratch(); return; }
-  if (TOOL === "calc") { b.innerHTML = `<div id="desmosBox"></div>`; initDesmos(); }
 }
 const scrKey = () => VIEW === "test" && T && !T.end ? "t" + T.qs[T.i].id : cur ? "p" + cur.id : "x";
 function initScratch(){
@@ -816,21 +814,9 @@ function initScratch(){
   $("scrUndo").onclick = () => { strokes.pop(); redraw(); };
   $("scrClear").onclick = () => { strokes.length = 0; redraw(); };
 }
-let DESM = null;
-function initDesmos(){
-  const box = $("desmosBox");
-  const make = () => { try { box.innerHTML = ""; DESM = Desmos.GraphingCalculator(box, {keypad: true, expressions: true, settingsMenu: false, zoomButtons: true, border: false, invertedColors: document.documentElement.dataset.theme === "dark", language: "ru"}); if (DESM_STATE) DESM.setState(DESM_STATE); } catch(e) { fail(); } };
-  const fail = () => { box.innerHTML = `<div class="empty">Desmos не загрузился (нет интернета или блокировка).<br><br><button class="btn sm" type="button" id="dOpen">Открыть Desmos в браузере</button></div>`; $("dOpen").onclick = () => { try { TG ? TG.openLink("https://www.desmos.com/calculator") : window.open("https://www.desmos.com/calculator"); } catch(e) {} }; };
-  if (window.Desmos) return make();
-  box.innerHTML = '<div class="empty">Загружаю Desmos…</div>';
-  const sc = document.createElement("script"); sc.src = "https://www.desmos.com/api/v1.10/calculator.js?apiKey=dcb31709b452b1cf9dc26972add0f7d2"; sc.onload = make; sc.onerror = fail;
-  const to = setTimeout(() => { if (!window.Desmos) fail(); }, 12000); sc.onload = () => { clearTimeout(to); make(); };
-  document.head.appendChild(sc);
-}
-let DESM_STATE = null;
 $("sheet").addEventListener("click", e => {
-  if (e.target.closest("[data-close]")) { if (DESM) { try { DESM_STATE = DESM.getState(); } catch(x) {} } closeSheet(); return; }
-  const t = e.target.closest("[data-tool]"); if (t) { if (DESM && TOOL === "calc") { try { DESM_STATE = DESM.getState(); } catch(x) {} DESM.destroy && DESM.destroy(); DESM = null; } TOOL = t.dataset.tool; renderSheet(); return; }
+  if (e.target.closest("[data-close]")) { closeSheet(); return; }
+  const t = e.target.closest("[data-tool]"); if (t) { TOOL = t.dataset.tool; renderSheet(); return; }
   const c = e.target.closest("[data-col]"); if (c) { scrColor = c.dataset.col; document.querySelectorAll("#sheet .col").forEach(x => x.classList.toggle("on", x.dataset.col === scrColor)); }
 });
 
