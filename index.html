@@ -7,10 +7,12 @@
 <script src="https://telegram.org/js/telegram-web-app.js"></script>
 <style>
 :root{
-  --bg:#f2f4f8;--card:#fff;--ink:#0f172a;--mut:#64748b;--line:#e5e9f0;--acc:#1d4ed8;--acc2:#dbe4ff;--ok:#15803d;--okbg:#e7f6ec;--bad:#b91c1c;--badbg:#fdecec;--warn:#b45309;--warnbg:#fff4df;--desm:#0e7490;--desmbg:#e6f6fa;
-  --r:16px;--tab:64px;
+  --bg:#f3f5fa;--card:#ffffff;--ink:#1c2433;--mut:#6b7686;--line:#e6eaf2;--acc:#3b6cf6;--acc2:#e9effe;--ok:#1e9e6a;--okbg:#e6f7ef;--bad:#e5484d;--badbg:#fdeceb;--warn:#d9780f;--warnbg:#fff4e3;--desm:#0e8fa8;--desmbg:#e4f6fa;
+  --grad:linear-gradient(135deg,#3b6cf6 0%,#5f8cff 55%,#7fb1ff 100%);
+  --shadow:0 1px 2px rgba(20,30,60,.04),0 4px 14px rgba(20,30,60,.06);
+  --r:18px;--tab:64px;
 }
-:root[data-theme="dark"]{--bg:#0f1419;--card:#1a212b;--ink:#eef2f7;--mut:#94a3b8;--line:#2a3340;--acc:#6b9cff;--acc2:#213252;--ok:#4ade80;--okbg:#13311f;--bad:#f87171;--badbg:#3a1a1a;--warn:#fbbf24;--warnbg:#3a2c10;--desm:#67e8f9;--desmbg:#0f2f38}
+:root[data-theme="dark"]{--bg:#0d1118;--card:#171d28;--ink:#eef2f8;--mut:#98a3b5;--line:#262e3c;--acc:#7a9dff;--acc2:#20304f;--ok:#4ade80;--okbg:#14301f;--bad:#f87171;--badbg:#3a1b1b;--warn:#fbbf24;--warnbg:#3a2c10;--desm:#67e8f9;--desmbg:#0f2f38;--grad:linear-gradient(135deg,#3356c9 0%,#4f78e8 55%,#5e93ef 100%);--shadow:0 1px 2px rgba(0,0,0,.3),0 4px 14px rgba(0,0,0,.25)}
 *{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
 html,body{margin:0;background:var(--bg);color:var(--ink);font:16px/1.45 -apple-system,BlinkMacSystemFont,"SF Pro Text",Inter,Roboto,"Segoe UI",sans-serif;-webkit-font-smoothing:antialiased}
 body{padding-bottom:calc(var(--tab) + env(safe-area-inset-bottom))}
@@ -21,15 +23,22 @@ h1,h2,h3{margin:0;font-weight:700;letter-spacing:-.01em}
 .wrap{max-width:560px;margin:0 auto;padding:12px 16px 24px}
 .top{display:flex;align-items:center;justify-content:space-between;padding:6px 0 10px}
 .brand{display:flex;align-items:center;gap:10px;font-weight:800;font-size:17px}
-.brand i{display:inline-grid;place-items:center;width:30px;height:30px;border-radius:9px;background:var(--acc);color:#fff;font-style:normal;font-weight:900;font-size:17px}
+.brand i{display:inline-grid;place-items:center;width:30px;height:30px;border-radius:9px;background:var(--grad);color:#fff;font-style:normal;font-weight:900;font-size:17px}
 .brand small{display:block;font-weight:500;font-size:12px;color:var(--mut)}
 .pill{display:inline-flex;align-items:center;gap:6px;padding:6px 10px;border-radius:999px;background:var(--card);border:1px solid var(--line);font-size:13px;font-weight:600;color:var(--mut)}
-.card{background:var(--card);border:1px solid var(--line);border-radius:var(--r);padding:16px;margin:0 0 12px}
+.card{background:var(--card);border:1px solid var(--line);border-radius:var(--r);padding:16px;margin:0 0 12px;box-shadow:var(--shadow)}
+.card.hero-c{background:var(--grad);border:0;color:#fff}
+.card.hero-c .muted,.card.hero-c .stat span{color:rgba(255,255,255,.8)}
+.card.hero-c .stat{background:rgba(255,255,255,.16)}
+.card.hero-c .btn{background:#fff;color:var(--acc)}
+.card.hero-c .btn.ghost{background:rgba(255,255,255,.18);color:#fff;border-color:rgba(255,255,255,.35)}
+.card.hero-c .ring .bgc{stroke:rgba(255,255,255,.3)}.card.hero-c .ring .fgc{stroke:#fff}.card.hero-c .ring b small{color:rgba(255,255,255,.8)}
 .card h2{font-size:16px;margin-bottom:10px}
 .muted{color:var(--mut);font-size:13px}
 .row{display:flex;gap:10px;align-items:center}
 .grow{flex:1}
-.btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;min-height:48px;padding:0 18px;border-radius:14px;background:var(--acc);color:#fff;font-weight:700;font-size:16px;transition:transform .08s}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;min-height:48px;padding:0 18px;border-radius:14px;background:var(--acc);color:#fff;font-weight:700;font-size:16px;transition:transform .08s;box-shadow:0 4px 12px rgba(59,108,246,.25)}
+.btn.ghost,.btn.sm.ghost{box-shadow:none}
 .btn:active{transform:scale(.97)}
 .btn.ghost{background:var(--card);color:var(--ink);border:1px solid var(--line)}
 .btn.sm{min-height:38px;padding:0 14px;font-size:14px;border-radius:11px}
@@ -41,10 +50,10 @@ h1,h2,h3{margin:0;font-weight:700;letter-spacing:-.01em}
 .chips{display:flex;gap:8px;overflow-x:auto;padding:2px 0 6px;scrollbar-width:none;margin:0 -16px;padding-left:16px;padding-right:16px}
 .chips::-webkit-scrollbar{display:none}
 .chip{flex:0 0 auto;padding:8px 13px;border-radius:999px;background:var(--card);border:1px solid var(--line);font-size:14px;font-weight:600;color:var(--mut);white-space:nowrap}
-.chip.on{background:var(--acc);border-color:var(--acc);color:#fff}
+.chip.on{background:var(--acc2);border-color:var(--acc);color:var(--acc)}
 select{width:100%;min-height:44px;padding:0 12px;border-radius:12px;border:1px solid var(--line);background:var(--card);color:var(--ink);font:inherit;font-size:15px}
 /* tabs */
-.tabs{position:fixed;left:0;right:0;bottom:0;height:calc(var(--tab) + env(safe-area-inset-bottom));padding-bottom:env(safe-area-inset-bottom);background:var(--card);border-top:1px solid var(--line);display:flex;z-index:20}
+.tabs{position:fixed;left:0;right:0;bottom:0;height:calc(var(--tab) + env(safe-area-inset-bottom));padding-bottom:env(safe-area-inset-bottom);background:var(--card);border-top:1px solid var(--line);display:flex;z-index:20;box-shadow:0 -4px 16px rgba(20,30,60,.05)}
 .tabs button{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:3px;font-size:11px;font-weight:600;color:var(--mut)}
 .tabs button svg{width:24px;height:24px;stroke:currentColor;fill:none;stroke-width:1.9;stroke-linecap:round;stroke-linejoin:round}
 .tabs button.on{color:var(--acc)}
@@ -58,7 +67,7 @@ select{width:100%;min-height:44px;padding:0 12px;border-radius:12px;border:1px s
 .ring b{position:absolute;inset:0;display:grid;place-items:center;font-size:17px}
 .ring b small{display:block;font-size:11px;color:var(--mut);font-weight:500;text-align:center}
 .stats{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-top:12px}
-.stat{background:var(--bg);border-radius:12px;padding:10px;text-align:center}
+.stat{background:var(--bg);border-radius:14px;padding:10px;text-align:center}
 .stat b{display:block;font-size:20px}
 .stat span{font-size:11px;color:var(--mut)}
 .flame{font-size:22px}
@@ -66,7 +75,7 @@ select{width:100%;min-height:44px;padding:0 12px;border-radius:12px;border:1px s
 .topic{display:grid;grid-template-columns:1fr auto;gap:4px 10px;align-items:center;padding:4px 0}
 .topic .nm{font-size:14px;font-weight:600}
 .topic .pc{font-size:13px;color:var(--mut);font-variant-numeric:tabular-nums}
-.bar{grid-column:1/3;height:6px;border-radius:4px;background:var(--line);overflow:hidden}
+.bar{grid-column:1/3;height:7px;border-radius:4px;background:var(--line);overflow:hidden}
 .bar i{display:block;height:100%;border-radius:4px;background:var(--acc)}
 .bar i.lo{background:var(--bad)}.bar i.mid{background:var(--warn)}.bar i.hi{background:var(--ok)}
 .dom-h{display:flex;justify-content:space-between;align-items:baseline;margin:14px 0 6px;font-size:13px;font-weight:700;color:var(--mut);text-transform:uppercase;letter-spacing:.04em}
@@ -91,6 +100,7 @@ sup{font-size:.7em;line-height:0}
 .opt{display:flex;align-items:center;gap:12px;min-height:50px;padding:10px 12px;border-radius:14px;border:1.5px solid var(--line);background:var(--card);text-align:left;font-size:16px;transition:border-color .12s}
 .opt .l{flex:0 0 30px;height:30px;border-radius:9px;display:grid;place-items:center;background:var(--bg);font-weight:800;font-size:14px;color:var(--mut)}
 .opts.row .opt{justify-content:center;padding:12px 0}
+.opt{box-shadow:0 1px 2px rgba(20,30,60,.03)}
 .opt.sel{border-color:var(--acc);background:var(--acc2)}
 .opt.ok{border-color:var(--ok);background:var(--okbg)}.opt.ok .l{background:var(--ok);color:#fff}
 .opt.bad{border-color:var(--bad);background:var(--badbg)}.opt.bad .l{background:var(--bad);color:#fff}
@@ -158,6 +168,41 @@ sup{font-size:.7em;line-height:0}
 .toast{position:fixed;left:50%;bottom:calc(var(--tab) + 14px);transform:translateX(-50%);background:var(--ink);color:var(--bg);padding:10px 16px;border-radius:12px;font-size:14px;font-weight:600;z-index:30;opacity:0;transition:opacity .2s;pointer-events:none}
 .toast.show{opacity:1}
 .skel{padding:40px;text-align:center;color:var(--mut)}
+/* v4: elimination, hint, tools sheet, scratch, stats */
+.optw{display:flex;gap:6px;align-items:stretch}
+.optw .opt{flex:1}
+.optw .x{flex:0 0 38px;border-radius:12px;border:1.5px dashed var(--line);color:var(--mut);font-size:15px;font-weight:700;display:grid;place-items:center}
+.optw .x.on{border-style:solid;border-color:var(--bad);color:var(--bad)}
+.opt.cut{opacity:.4}.opt.cut .t{text-decoration:line-through}
+.opts.row .optw .x{display:none}
+.hint{margin-top:12px;padding:10px 12px;border-radius:12px;background:var(--warnbg);color:var(--warn);font-size:15px}
+.hint b{font-weight:800}
+.tick{font-variant-numeric:tabular-nums}
+.sheet{position:fixed;inset:0;z-index:40}
+.sheet .bg{position:absolute;inset:0;background:rgba(0,0,0,.45)}
+.sheet .sh{position:absolute;left:0;right:0;bottom:0;height:78vh;background:var(--card);border-radius:20px 20px 0 0;display:flex;flex-direction:column;padding:10px 16px calc(12px + env(safe-area-inset-bottom));box-shadow:0 -8px 30px rgba(0,0,0,.18)}
+.sheet .sh-h{display:flex;gap:8px;align-items:center;margin-bottom:8px}
+.sheet .sh-h .seg{flex:1;margin:0}
+.sheet .sh-b{flex:1;overflow:auto;min-height:0;position:relative}
+.ref h3{font-size:14px;color:var(--mut);text-transform:uppercase;letter-spacing:.04em;margin:14px 0 6px}
+.ref h3:first-child{margin-top:0}
+.ref p{margin:0 0 7px;font-size:15px}
+.ref p b{font-weight:800}
+.ref .tip{padding:8px 10px;border-radius:10px;background:var(--acc2);color:var(--acc);font-size:14px}
+#scr{display:block;width:100%;height:100%;border-radius:12px;background:var(--bg);touch-action:none}
+.scr-bar{display:flex;gap:8px;margin-bottom:8px}
+.scr-bar .btn.sm{min-height:34px}
+.scr-bar .col{width:34px;height:34px;border-radius:50%;border:3px solid var(--card);box-shadow:0 0 0 1px var(--line)}
+.scr-bar .col.on{box-shadow:0 0 0 2px var(--acc)}
+#desmosBox{width:100%;height:100%;min-height:380px;border-radius:12px;overflow:hidden;background:#fff}
+.dayz{display:flex;gap:4px;align-items:flex-end;height:64px;margin:8px 0 2px}
+.dayz i{flex:1;display:block;background:var(--acc2);border-radius:4px 4px 0 0;min-height:3px;position:relative}
+.dayz i.t{background:var(--grad)}
+.dayl{display:flex;gap:4px;font-size:10px;color:var(--mut)}
+.dayl span{flex:1;text-align:center}
+.srs{display:flex;align-items:center;gap:12px}
+.srs b{font-size:28px}
+.ib.wide{width:auto;padding:0 10px;font-size:13px;font-weight:700;gap:5px}
 </style>
 </head>
 <body>
@@ -190,6 +235,10 @@ sup{font-size:.7em;line-height:0}
   <button data-v="board"><svg viewBox="0 0 24 24"><path d="M8 21h8M12 17v4M5 4h14v4a7 7 0 0 1-14 0zM5 6H2v2a3 3 0 0 0 3 3M19 6h3v2a3 3 0 0 1-3 3"/></svg>Рейтинг</button>
 </nav>
 <div class="toast" id="toast"></div>
+<div class="sheet" id="sheet" hidden><div class="bg" data-close="1"></div><div class="sh">
+  <div class="sh-h"><div class="seg"><button data-tool="ref" type="button">Формулы</button><button data-tool="scr" type="button">Черновик</button><button data-tool="calc" type="button">Desmos</button></div><button class="ib" data-close="1" type="button" aria-label="Закрыть"><svg viewBox="0 0 24 24"><path d="M6 6l12 12M18 6L6 18"/></svg></button></div>
+  <div class="sh-b" id="shBody"></div>
+</div></div>
 
 <script>
 /* ---------- data ---------- */
@@ -231,31 +280,36 @@ const haptic = kind => { try { TG && TG.HapticFeedback && (kind === "ok" || kind
 /* ---------- storage ---------- */
 const KEY = "mm_sat_trainer_v3";
 let S = {name:"", done:{}, best:0, streak:0, days:[], goal:10, marks:[], last:0, f:{dom:"", skill:"", diff:"", mode:"all"}, ev:[]};
-const packDone = d => Object.entries(d).map(([id,r]) => id + ":" + r.n + ":" + r.ok + ":" + r.last).join(";");
-const unpackDone = str => { const d = {}; (str || "").split(";").forEach(x => { const p = x.split(":").map(Number); if (p.length === 4 && p[0]) d[p[0]] = {n:p[1], ok:p[2], last:p[3]}; }); return d; };
+const D0 = 20260101;
+const ymdFromOff = o => { const d = new Date(2026, 0, 1 + o); return d.getFullYear() * 10000 + (d.getMonth() + 1) * 100 + d.getDate(); };
+const packDone = d => Object.entries(d).map(([id,r]) => id + ":" + r.n + ":" + r.ok + ":" + r.last + (r.day ? ":" + dayDiff(D0, r.day) + (r.st ? ":" + r.st : "") : "")).join(";");
+const unpackDone = str => { const d = {}; (str || "").split(";").forEach(x => { const p = x.split(":").map(Number); if (p.length >= 4 && p[0]) { const r = {n:p[1], ok:p[2], last:p[3]}; if (p.length > 4) r.day = ymdFromOff(p[4]); if (p.length > 5) r.st = p[5]; d[p[0]] = r; } }); return d; };
 const cloudGet = keys => new Promise(res => { try { CLOUD.getItems(keys, (err, v) => res(err ? {} : (v || {}))); } catch(e) { res({}); } });
 const cloudSet = (k, v) => { try { CLOUD.setItem(k, v, () => {}); } catch(e) {} };
-const PK = ["p0","p1","p2","p3","p4","p5","p6","p7"];
+const PK = ["p0","p1","p2","p3","p4","p5","p6","p7","p8","p9","p10","p11"];
 async function load(){
   if (CLOUD) {
-    const v = await cloudGet(["meta3","meta"].concat(PK));
+    const v = await cloudGet(["meta3","meta","st3"].concat(PK));
     try { if (v.meta3) Object.assign(S, JSON.parse(v.meta3)); else if (v.meta) Object.assign(S, JSON.parse(v.meta)); } catch(e) {}
+    try { if (v.st3) Object.assign(S, JSON.parse(v.st3)); } catch(e) {}
     S.done = unpackDone(PK.map(k => v[k]).filter(Boolean).join(";"));
   } else {
     try { const raw = localStorage.getItem(KEY) || localStorage.getItem("mm_sat_trainer_v1"); if (raw) S = Object.assign(S, JSON.parse(raw)); } catch(e) {}
   }
-  S.days = S.days || []; S.marks = S.marks || []; S.ev = S.ev || []; S.goal = S.goal || 10;
+  S.days = S.days || []; S.marks = S.marks || []; S.ev = S.ev || []; S.goal = S.goal || 10; S.ds = S.ds || {}; S.tests = S.tests || [];
   if (!S.name && TG && TG.initDataUnsafe && TG.initDataUnsafe.user) S.suggest = TG.initDataUnsafe.user.first_name || "";
 }
 function save(){
   const meta = {name:S.name, best:S.best, streak:S.streak, days:S.days.slice(-70), goal:S.goal, marks:S.marks.slice(-300), last:S.last, f:S.f};
+  const dk = Object.keys(S.ds).sort(); while (dk.length > 60) delete S.ds[dk.shift()];
+  const st = {ds: S.ds, tests: S.tests.slice(-20), tlen: S.tlen, tdom: S.tdom};
   if (CLOUD) {
-    cloudSet("meta3", JSON.stringify(meta));
+    cloudSet("meta3", JSON.stringify(meta)); cloudSet("st3", JSON.stringify(st));
     const p = packDone(S.done), parts = [];
     for (let i = 0; i < p.length; ) { let j = Math.min(p.length, i + 3900); if (j < p.length) j = p.lastIndexOf(";", j) + 1 || j; parts.push(p.slice(i, j).replace(/;$/, "")); i = j; }
     PK.forEach((k, i) => cloudSet(k, parts[i] || ""));
   } else {
-    try { localStorage.setItem(KEY, JSON.stringify(Object.assign({}, meta, {done:S.done}))); } catch(e) {}
+    try { localStorage.setItem(KEY, JSON.stringify(Object.assign({}, meta, st, {done:S.done}))); } catch(e) {}
   }
 }
 
@@ -368,16 +422,30 @@ function skillStat(s){
   for (const t of ts) { const r = S.done[t.id]; if (r) { seen++; if (r.last) ok++; } }
   return {n: ts.length, seen, ok, pct: seen ? Math.round(100 * ok / seen) : 0};
 }
-function record(t, ok, pickVal, fromTest){
+function record(t, ok, pickVal, fromTest, sec){
   const r = S.done[t.id] || {n:0, ok:0, last:0};
-  r.n++; if (ok) r.ok++; r.last = ok ? 1 : 0; r.day = today(); S.done[t.id] = r;
+  r.n++; if (ok) r.ok++; r.last = ok ? 1 : 0; r.day = today(); r.st = ok ? (r.st || 0) + 1 : 0; S.done[t.id] = r;
+  const ds = S.ds[today()] || [0, 0, 0]; ds[0]++; if (ok) ds[1]++; ds[2] += Math.min(600, Math.round(sec || 0)); S.ds[today()] = ds;
   if (ok) { S.streakN = (S.streakN || 0) + 1; S.best = Math.max(S.best || 0, S.streakN); } else S.streakN = 0;
   if (!S.days.includes(today())) S.days.push(today());
   S.streak = streakNow();
   S.ev.push([t.id, ok ? 1 : 0, Date.now()]); if (S.ev.length > 200) S.ev = S.ev.slice(-200);
   S.last = t.id;
-  save(); sendResult();
-  haptic(ok ? "ok" : "bad");
+  if (!fromTest) { save(); sendResult(); haptic(ok ? "ok" : "bad"); }
+}
+/* интервальное повторение: ошибка → сразу; после ошибки верно 1 раз → через 1 день, затем 3, 7, 14, 30 */
+const INT = [1, 3, 7, 14, 30];
+function dueReview(t){
+  const r = S.done[t.id]; if (!r) return false;
+  if (!r.last) return true;
+  if (r.ok >= r.n) return false;
+  return dayDiff(r.day || today(), today()) >= INT[Math.min((r.st || 1) - 1, INT.length - 1)];
+}
+const reviewList = () => TASKS.filter(dueReview);
+const enc = encodeURIComponent;
+function share(text){
+  const link = "https://t.me/share/url?url=" + enc("https://t.me/MathMaks_SAT_bot") + "&text=" + enc(text);
+  try { if (TG && TG.openTelegramLink) TG.openTelegramLink(link); else window.open(link, "_blank"); } catch(e) { window.open(link, "_blank"); }
 }
 const solvedToday = () => S.ev.filter(e => e[1] && new Date(e[2]).toDateString() === new Date().toDateString()).map(e => e[0]).filter((v, i, a) => a.indexOf(v) === i).length;
 
@@ -399,14 +467,17 @@ function renderHome(){
   const streak = streakNow();
   const weak = Object.keys(SKILL).map(s => ({s, ...skillStat(s)})).filter(x => x.seen >= 3).sort((a, b) => a.pct - b.pct).slice(0, 3);
   const cont = S.last && byId[S.last] ? byId[S.last] : null;
-  let h = `<div class="card"><div class="hero"><div>
+  let h = `<div class="card hero-c"><div class="hero"><div>
       <h2 style="font-size:20px;margin-bottom:4px">Привет, ${esc(S.name)}!</h2>
-      <p class="muted" style="margin:0">${todayN >= goal ? "Цель на сегодня выполнена 🎉" : `Сегодня решено ${todayN} из ${goal}. ${todayN ? "Продолжай!" : "Начнём?"}`}</p>
+      <p class="muted" style="margin:0;font-size:14px">${todayN >= goal ? "Цель на сегодня выполнена 🎉" : `Сегодня решено ${todayN} из ${goal}. ${todayN ? "Продолжай!" : "Начнём?"}`}</p>
       <div class="row" style="margin-top:12px"><button class="btn sm" id="hStart">${cont && !S.done[cont.id] ? "Продолжить" : "Решать"}</button><button class="btn sm ghost" id="hTest">Тест 10 задач</button></div>
     </div>
     <div class="ring"><svg viewBox="0 0 92 92"><circle class="bgc" cx="46" cy="46" r="40"/><circle class="fgc" cx="46" cy="46" r="40" stroke-dasharray="${C}" stroke-dashoffset="${C * (1 - pct)}"/></svg><b>${todayN}<small>из ${goal}</small></b></div></div>
     <div class="stats"><div class="stat"><b class="flame">${streak ? "🔥 " + streak : "—"}</b><span>дней подряд</span></div><div class="stat"><b>${solved}</b><span>решено из ${TASKS.length}</span></div><div class="stat"><b>${tries ? Math.round(100 * done.filter(r => r.last).length / done.length) : 0}%</b><span>верно сейчас</span></div></div>
   </div>`;
+  const due = reviewList().length;
+  h += `<div class="card"><div class="srs"><b>${due}</b><div class="grow"><h2 style="margin-bottom:2px">Повторить</h2><p class="muted" style="margin:0">${due ? "Ошибки и задачи, которые пора закрепить: через 1, 3, 7, 14 и 30 дней." : "Пока нечего повторять. Решай новые задачи."}</p></div>${due ? `<button class="btn sm" id="hRev">Начать</button>` : ""}</div></div>`;
+  h += statsCard();
   if (weak.length) h += `<div class="card"><h2>Подтянуть</h2><div class="topics">${weak.map(x => `<button class="topic" data-skill="${x.s}" type="button" style="text-align:left"><span class="nm">${SKILL[x.s]}</span><span class="pc">${x.pct}%</span><span class="bar"><i class="${cls(x.pct)}" style="width:${x.pct}%"></i></span></button>`).join("")}</div><p class="muted" style="margin:10px 0 0">Нажми на тему, чтобы решать только её ошибки.</p></div>`;
   if (S.marks.length) h += `<div class="card"><h2>Закладки · ${S.marks.length}</h2><div class="list">${S.marks.slice(-24).reverse().map(id => `<button class="cell ${S.done[id] ? (S.done[id].last ? "ok" : "bad") : ""}" data-open="${id}" type="button">№${id}</button>`).join("")}</div></div>`;
   h += `<div class="card"><h2>Карта тем</h2>` + DOMAINS.map(d => {
@@ -419,6 +490,25 @@ function renderHome(){
   $("v-home").innerHTML = h;
   $("hStart").onclick = () => { if (cont && !S.done[cont.id]) { go("practice"); openTask(cont.id); } else go("practice"); };
   $("hTest").onclick = () => { go("test"); };
+  const rv = $("hRev"); if (rv) rv.onclick = () => { S.f = {dom: "", skill: "", diff: "", mode: "review"}; save(); go("practice"); pick(); };
+  const sh = $("hShare"); if (sh) sh.onclick = () => share(`Мой прогресс в тренажёре SAT Math от Math Maks: решено ${solved} задач${streak ? ", " + streak + " дней подряд 🔥" : ""}. Присоединяйся 👇`);
+}
+function statsCard(){
+  const days = []; for (let i = 13; i >= 0; i--) { const d = new Date(); d.setDate(d.getDate() - i); days.push(d); }
+  const ymd = d => d.getFullYear() * 10000 + (d.getMonth() + 1) * 100 + d.getDate();
+  const vals = days.map(d => (S.ds[ymd(d)] || [0, 0, 0])), mx = Math.max(1, ...vals.map(v => v[0]));
+  const tot = Object.values(S.ds).reduce((a, v) => [a[0] + v[0], a[1] + v[1], a[2] + v[2]], [0, 0, 0]);
+  const wk = vals.slice(-7).reduce((a, v) => [a[0] + v[0], a[1] + v[1]], [0, 0]);
+  const byD = {e: [0, 0], m: [0, 0], h: [0, 0]};
+  for (const [id, r] of Object.entries(S.done)) { const t = byId[id]; if (t) { byD[t.d][0] += r.n; byD[t.d][1] += r.ok; } }
+  const pc = x => x[0] ? Math.round(100 * x[1] / x[0]) + "%" : "—";
+  const avg = tot[0] ? Math.round(tot[2] / tot[0]) : -1;
+  return `<div class="card"><h2>Статистика</h2>
+    <div class="row" style="justify-content:space-between"><span class="muted">14 дней · попыток</span><span class="muted">за неделю ${wk[0]} · верно ${wk[0] ? Math.round(100 * wk[1] / wk[0]) + "%" : "—"}</span></div>
+    <div class="dayz">${vals.map((v, i) => `<i class="${i === 13 ? "t" : ""}" style="height:${Math.max(4, Math.round(100 * v[0] / mx))}%" title="${v[0]}"></i>`).join("")}</div>
+    <div class="dayl">${days.map(d => `<span>${"вс пн вт ср чт пт сб".split(" ")[d.getDay()]}</span>`).join("")}</div>
+    <div class="stats"><div class="stat"><b style="color:var(--ok)">${pc(byD.e)}</b><span>Easy</span></div><div class="stat"><b style="color:var(--warn)">${pc(byD.m)}</b><span>Medium</span></div><div class="stat"><b style="color:var(--bad)">${pc(byD.h)}</b><span>Hard</span></div></div>
+    <div class="row" style="margin-top:12px"><span class="muted grow">${avg >= 0 ? "Среднее время на задачу: " + fmtTime(avg) + " (на SAT ≈ 1:35)" : "Время на задачу появится после первых решений."}</span><button class="btn sm ghost" id="hShare">Поделиться</button></div></div>`;
 }
 const cls = p => p < 50 ? "lo" : p < 80 ? "mid" : "hi";
 $("v-home").addEventListener("click", e => {
@@ -440,17 +530,19 @@ function pool(){
     if (f.mode === "new" && r) return false;
     if (f.mode === "wrong" && !(r && !r.last)) return false;
     if (f.mode === "marks" && !S.marks.includes(t.id)) return false;
+    if (f.mode === "review" && !dueReview(t)) return false;
     return true;
   });
 }
 function pick(){
-  const p = pool().filter(t => !given[t.id] || S.f.mode === "wrong");
+  const p = pool().filter(t => !given[t.id] || S.f.mode === "wrong" || S.f.mode === "review");
   if (!p.length) { cur = null; renderTask(); return; }
-  const fresh = p.filter(t => !S.done[t.id]); const src = fresh.length && S.f.mode !== "wrong" && S.f.mode !== "marks" ? fresh : p;
+  const fresh = p.filter(t => !S.done[t.id]); const src = fresh.length && S.f.mode !== "wrong" && S.f.mode !== "marks" && S.f.mode !== "review" ? fresh : p;
   show(src[Math.floor(Math.random() * src.length)], true);
 }
+let shownAt = 0;
 function show(t, push){
-  cur = t; answered = !!given[t.id];
+  cur = t; answered = !!given[t.id]; shownAt = Date.now();
   if (push) { hist.splice(hpos + 1); hist.push(t.id); hpos = hist.length - 1; }
   listOpen = false; renderTask();
 }
@@ -462,7 +554,7 @@ function renderPractice(){
     <div class="chips" id="domChips"><button class="chip ${!f.dom ? "on" : ""}" data-dom="" type="button">Все разделы</button>${DOMAINS.map(d => `<button class="chip ${f.dom === d.k ? "on" : ""}" data-dom="${d.k}" type="button">${d.n}</button>`).join("")}</div>
     <div class="row" style="margin:4px 0 10px"><select id="fSkill" class="grow"><option value="">Все темы</option>${skills.map(s => `<option value="${s}" ${f.skill === s ? "selected" : ""}>${SKILL[s]}</option>`).join("")}</select></div>
     <div class="chips"><button class="chip ${!f.diff ? "on" : ""}" data-diff="" type="button">Любая</button>${["e","m","h"].map(d => `<button class="chip ${f.diff === d ? "on" : ""}" data-diff="${d}" type="button">${DIFF[d]}</button>`).join("")}
-      <span style="width:6px"></span>${[["all","Все"],["new","Новые"],["wrong","Мои ошибки"],["marks","Закладки"]].map(([m, n]) => `<button class="chip ${f.mode === m ? "on" : ""}" data-mode="${m}" type="button">${n}</button>`).join("")}</div>
+      <span style="width:6px"></span>${[["all","Все"],["new","Новые"],["wrong","Мои ошибки"],["review","Повторить"],["marks","Закладки"]].map(([m, n]) => `<button class="chip ${f.mode === m ? "on" : ""}" data-mode="${m}" type="button">${n}</button>`).join("")}</div>
     <div id="task"></div>`;
   $("fSkill").onchange = e => { S.f.skill = e.target.value; save(); pick(); renderPractice(); };
   if (!cur || !pool().some(t => t.id === cur.id)) pick(); else renderTask();
@@ -483,49 +575,66 @@ function taskHtml(t, g, opts){
   h += `<div class="q">${qhtml2(t.q)}</div>`;
   if (t.c.length) {
     const right = "ABCD".indexOf(t.a), figs = t.c.every(c => !c);
+    const cut = CUT[t.id] || new Set(), fin = g && o.reveal !== false;
+    if (!fin && HINT.has(t.id) && o.hint !== false) h += `<div class="hint"><b>Подсказка.</b> ${fmt(firstLine(t))}</div>`;
     h += `<div class="opts ${figs ? "row" : ""}">` + t.c.map((c, i) => {
       const cls = g ? (o.reveal === false ? (i === g.pick ? "sel" : "") : (i === right ? "ok" : i === g.pick ? "bad" : "")) : "";
-      return `<button class="opt ${cls}" type="button" data-i="${i}" ${g && o.reveal !== false ? "disabled" : ""}><span class="l">${"ABCD"[i]}</span>${c ? `<span class="t">${fmt(c)}</span>` : ""}</button>`;
+      const isCut = !fin && cut.has(i);
+      return `<div class="optw"><button class="opt ${cls} ${isCut ? "cut" : ""}" type="button" data-i="${i}" ${fin ? "disabled" : ""}><span class="l">${"ABCD"[i]}</span>${c ? `<span class="t">${fmt(c)}</span>` : ""}</button>${fin ? "" : `<button class="x ${isCut ? "on" : ""}" type="button" data-x="${i}" aria-label="Исключить вариант">${isCut ? "↺" : "✕"}</button>`}</div>`;
     }).join("") + '</div>';
   } else {
+    if (!(g && o.reveal !== false) && HINT.has(t.id) && o.hint !== false) h += `<div class="hint"><b>Подсказка.</b> ${fmt(firstLine(t))}</div>`;
     h += `<form class="gi" id="gf"><input id="gi" inputmode="decimal" autocomplete="off" placeholder="Ответ" aria-label="Ответ" value="${g ? esc(String(g.pick)) : ""}" ${g && o.reveal !== false ? "disabled" : ""}><button class="btn" type="submit" ${g && o.reveal !== false ? "disabled" : ""}>${o.testBtn || "Проверить"}</button></form>`;
     if (!g || o.reveal === false) h += `<div class="keys"><button type="button" data-k="−">−</button><button type="button" data-k="/">/</button><button type="button" data-k=".">.</button><button type="button" data-k="del">⌫</button></div><div class="pv" id="pv"></div>`;
   }
   return h;
 }
+const CUT = {}, HINT = new Set();
+const firstLine = t => { const e = Array.isArray(t.e) ? t.e : String(t.e || "").split("\n"); return (e.find(l => l.trim()) || "Подумай, какой раздел это проверяет.").trim().replace(/^Ответ\s*:.*$/i, "Подумай, какой раздел это проверяет."); };
+const TOOLS_BTN = `<button class="ib" id="tools" type="button" aria-label="Формулы, черновик, Desmos"><svg viewBox="0 0 24 24"><rect x="4" y="2" width="16" height="20" rx="2"/><path d="M8 6h8M8 11h2M12 11h2M16 11h0M8 15h2M12 15h2M16 15v4M8 19h2M12 19h2"/></svg></button>`;
 function renderTask(){
   const box = $("task"); if (!box) return;
-  const nav = `<div class="nav"><button class="btn sm ghost" type="button" id="back" ${hpos > 0 && cur ? "" : "disabled"}>← Назад</button><button class="btn sm ghost" type="button" id="listBtn">${listOpen ? "Скрыть список" : "Список"}</button><span class="sp"></span>${cur ? `<button class="ib ${S.marks.includes(cur.id) ? "on" : ""}" id="mark" type="button" aria-label="Закладка"><svg viewBox="0 0 24 24"><path d="M6 3h12v18l-6-4-6 4z"/></svg></button>` : ""}</div>`;
+  const g0 = cur ? given[cur.id] : null;
+  const nav = `<div class="nav"><button class="btn sm ghost" type="button" id="back" ${hpos > 0 && cur ? "" : "disabled"}>←</button><button class="btn sm ghost" type="button" id="listBtn">${listOpen ? "Скрыть" : "Список"}</button><span class="sp"></span>${cur ? `${!g0 ? `<button class="ib ${HINT.has(cur.id) ? "on" : ""}" id="hintBtn" type="button" aria-label="Подсказка"><svg viewBox="0 0 24 24"><path d="M9 18h6M10 21h4M12 3a6 6 0 0 1 4 10.5c-.7.6-1 1.3-1 2.5h-6c0-1.2-.3-1.9-1-2.5A6 6 0 0 1 12 3z"/></svg></button>` : ""}${TOOLS_BTN}<button class="ib ${S.marks.includes(cur.id) ? "on" : ""}" id="mark" type="button" aria-label="Закладка"><svg viewBox="0 0 24 24"><path d="M6 3h12v18l-6-4-6 4z"/></svg></button>` : ""}</div>`;
   const list = listOpen ? listHtml() : "";
   if (!cur) {
     const msg = S.f.mode === "wrong" ? "Ошибок в этой выборке нет 👍" : S.f.mode === "new" ? "Все задачи этой выборки уже решены. Выбери «Все» или другую тему." : S.f.mode === "marks" ? "Закладок пока нет. Нажми на флажок у задачи." : "Здесь пока нет задач.";
     box.innerHTML = nav + list + `<div class="card"><div class="empty">${msg}</div></div>`; return;
   }
   const g = given[cur.id];
-  box.innerHTML = nav + list + `<div class="card">` + taskHtml(cur, g) + `<div id="res"></div></div>`;
+  box.innerHTML = nav + list + `<div class="card">` + taskHtml(cur, g) + `<div id="res"></div>` + (g ? "" : `<div class="actions"><button class="btn sm ghost grow" type="button" id="skip">Пропустить →</button></div>`) + `</div>`;
   if (g) showResult(g.ok);
   const gi = $("gi"); if (gi && !g) gi.focus({preventScroll: true});
 }
 function showResult(ok){
   const t = cur;
+  const g = given[t.id] || {};
   const extra = ok ? "" : "Правильный ответ: " + (t.c.length ? t.a : fmt(shownAnswer(t.a)));
-  $("res").innerHTML = `<div class="res ${ok ? "ok" : "bad"}"><h3>${ok ? "Верно ✓" : "Неверно"} <span style="font-weight:500">${extra}</span></h3>${explainHtml(t)}</div>
-    <div class="actions"><button class="btn grow" type="button" id="next">Следующая →</button></div>`;
+  const tm = g.sec ? ` <span class="muted tick">⏱ ${fmtTime(Math.round(g.sec))}${g.hint ? " · с подсказкой" : ""}</span>` : "";
+  $("res").innerHTML = `<div class="res ${ok ? "ok" : "bad"}"><h3>${ok ? "Верно ✓" : "Неверно"} <span style="font-weight:500">${extra}</span>${tm}</h3>${explainHtml(t)}</div>
+    <div class="actions"><button class="btn grow" type="button" id="next">Следующая →</button></div>
+    <p class="muted" style="margin:10px 0 0;text-align:center;font-size:12px">Нашёл ошибку в задаче или разборе? <button class="lnk" type="button" id="report" style="font-size:12px">Сообщить</button></p>`;
 }
 function answerCur(ok, pickVal){
-  answered = true; given[cur.id] = {pick: pickVal, ok};
-  record(cur, ok, pickVal);
+  const sec = (Date.now() - shownAt) / 1000;
+  answered = true; given[cur.id] = {pick: pickVal, ok, sec, hint: HINT.has(cur.id)};
+  record(cur, ok, pickVal, false, sec);
   renderTask();
 }
 $("v-practice").addEventListener("click", e => {
-  const o = e.target.closest(".opt"); if (o && cur && !answered) { const i = +o.dataset.i; answerCur(i === "ABCD".indexOf(cur.a), i); return; }
-  if (e.target.closest("#next")) { haptic(); pick(); return; }
+  const x = e.target.closest(".x[data-x]"); if (x && cur && !answered) { toggleCut(cur.id, +x.dataset.x); renderTask(); return; }
+  const o = e.target.closest(".opt"); if (o && cur && !answered) { const i = +o.dataset.i; if (o.classList.contains("cut")) { toggleCut(cur.id, i); renderTask(); return; } answerCur(i === "ABCD".indexOf(cur.a), i); return; }
+  if (e.target.closest("#next") || e.target.closest("#skip")) { haptic(); pick(); return; }
+  if (e.target.closest("#hintBtn") && cur) { HINT.add(cur.id); haptic(); renderTask(); return; }
+  if (e.target.closest("#tools")) { openSheet(); return; }
+  if (e.target.closest("#report") && cur) { share(`Math Maks, в тренажёре ошибка в задаче №${cur.id} (${SKILL[cur.s]}): `); return; }
   if (e.target.closest("#back")) { if (hpos > 0) { hpos--; show(byId[hist[hpos]], false); } return; }
   if (e.target.closest("#listBtn")) { listOpen = !listOpen; renderTask(); return; }
   if (e.target.closest("#mark")) { toggleMark(cur.id); renderTask(); return; }
   const c = e.target.closest(".cell[data-id]"); if (c) { openTask(+c.dataset.id); window.scrollTo({top: 0, behavior: "smooth"}); return; }
   const k = e.target.closest(".keys button"); if (k) { keyPress(k.dataset.k); return; }
 });
+function toggleCut(id, i){ const c = CUT[id] || (CUT[id] = new Set()); c.has(i) ? c.delete(i) : c.add(i); haptic(); }
 function toggleMark(id){ const i = S.marks.indexOf(id); if (i >= 0) S.marks.splice(i, 1); else S.marks.push(id); save(); toast(i >= 0 ? "Закладка удалена" : "В закладках"); }
 function keyPress(k){
   const gi = $("gi"); if (!gi) return;
@@ -543,7 +652,7 @@ document.addEventListener("submit", e => {
   answerCur(ok, v);
 });
 document.addEventListener("keydown", e => {
-  if (VIEW !== "practice" || !cur || answered || !cur.c.length || e.target.tagName === "INPUT") return;
+  if (VIEW !== "practice" || !cur || answered || !cur.c.length || e.target.tagName === "INPUT" || !$("sheet").hidden) return;
   const i = "abcd".indexOf(e.key.toLowerCase()) >= 0 ? "abcd".indexOf(e.key.toLowerCase()) : "1234".indexOf(e.key);
   if (i >= 0) answerCur(i === "ABCD".indexOf(cur.a), i);
 });
@@ -553,8 +662,8 @@ let T = null; // {qs, i, ans:{}, flags:Set, start, end, len, timer}
 function renderTest(){
   const box = $("v-test");
   if (!T) {
-    box.innerHTML = `<div class="card"><h2>Тест как на SAT</h2><p class="muted" style="margin:0 0 12px">Задачи вперемешку из всех тем, без подсказок. Разбор после финиша. Таймер: 1,5 минуты на задачу, как на экзамене.</p>
-      <div class="row" style="margin-bottom:10px"><span class="grow">Задач</span>${[5,10,22].map(n => `<button class="chip ${(S.tlen || 10) === n ? "on" : ""}" data-tlen="${n}" type="button">${n}</button>`).join("")}</div>
+    box.innerHTML = `<div class="card"><h2>Тест как на SAT</h2><p class="muted" style="margin:0 0 12px">Без подсказок, разбор после финиша. Пропорции тем как на экзамене: Algebra 35%, Advanced 35%, Data 15%, Geometry 15%. «Модуль» — это настоящий модуль Digital SAT: 22 задачи за 35 минут. Формулы, черновик и Desmos — по кнопке, как в Bluebook.</p>
+      <div class="row" style="margin-bottom:10px"><span class="grow">Задач</span>${[5,10,22].map(n => `<button class="chip ${(S.tlen || 10) === n ? "on" : ""}" data-tlen="${n}" type="button">${n === 22 ? "Модуль 22" : n}</button>`).join("")}</div>
       <select id="tDom"><option value="">Все разделы</option>${DOMAINS.map(d => `<option value="${d.k}" ${S.tdom === d.k ? "selected" : ""}>${d.n}</option>`).join("")}</select>
       <button class="btn wide" style="margin-top:14px" id="tStart">Начать тест</button></div>` + (S.tests && S.tests.length ? `<div class="card"><h2>Прошлые тесты</h2>${S.tests.slice(-8).reverse().map(x => `<div class="row" style="padding:6px 0;border-bottom:1px solid var(--line)"><span class="grow">${new Date(x.t).toLocaleDateString("ru")} · ${x.n} задач</span><b>${x.ok}/${x.n}</b><span class="muted">${fmtTime(x.sec)}</span></div>`).join("")}</div>` : "");
     $("tStart").onclick = startTest; return;
@@ -563,22 +672,28 @@ function renderTest(){
   const t = T.qs[T.i], g = T.ans[t.id];
   box.innerHTML = `<div class="tbar"><span class="muted">Задача ${T.i + 1} из ${T.qs.length}</span><span class="tm" id="tm">${fmtTime(Math.max(0, T.limit - Math.floor((Date.now() - T.start) / 1000)))}</span></div>
     <div class="dots">${T.qs.map((q, i) => `<button class="dot ${i === T.i ? "cur" : ""} ${T.ans[q.id] !== undefined ? "a" : ""} ${T.flags.has(q.id) ? "f" : ""}" data-ti="${i}" type="button">${i + 1}</button>`).join("")}</div>
-    <div class="card">${taskHtml(t, g !== undefined ? {pick: g} : null, {reveal: false, testBtn: "Ок"})}</div>
-    <div class="actions"><button class="btn ghost" type="button" id="tPrev" ${T.i ? "" : "disabled"}>←</button><button class="btn ghost" type="button" id="tFlag">${T.flags.has(t.id) ? "🚩 Снять флаг" : "🚩 Флаг"}</button><button class="btn grow" type="button" id="tNext">${T.i < T.qs.length - 1 ? "Дальше →" : "Завершить"}</button></div>`;
+    <div class="card">${taskHtml(t, g !== undefined ? {pick: g} : null, {reveal: false, testBtn: "Ок", hint: false})}</div>
+    <div class="actions"><button class="btn ghost" type="button" id="tPrev" ${T.i ? "" : "disabled"}>←</button><button class="btn ghost icon" type="button" id="tFlag" aria-label="Флаг">${T.flags.has(t.id) ? "🚩" : "⚑"}</button><button class="btn ghost icon" type="button" id="tools" aria-label="Инструменты">🧮</button><button class="btn grow" type="button" id="tNext">${T.i < T.qs.length - 1 ? "Дальше →" : "Завершить"}</button></div>`;
+  T.at = Date.now();
   if (!t.c.length && g !== undefined) { const gi = $("gi"); if (gi) gi.value = g; }
 }
 const fmtTime = s => Math.floor(s / 60) + ":" + String(s % 60).padStart(2, "0");
 function startTest(){
   const n = S.tlen || 10, dom = $("tDom") ? $("tDom").value : "";
-  let p = TASKS.filter(t => !dom || domOf(t.s).k === dom);
-  const fresh = p.filter(t => !S.done[t.id]); if (fresh.length >= n) p = fresh;
-  const qs = []; const pool2 = p.slice();
-  while (qs.length < n && pool2.length) qs.push(pool2.splice(Math.floor(Math.random() * pool2.length), 1)[0]);
-  T = {qs, i: 0, ans: {}, flags: new Set(), start: Date.now(), end: 0, limit: n * 90};
+  S.tdom = dom;
+  const draw = (arr, k) => { const out = [], fresh = arr.filter(t => !S.done[t.id]); let src = fresh.length >= k ? fresh : arr.slice(); while (out.length < k && src.length) out.push(src.splice(Math.floor(Math.random() * src.length), 1)[0]); return out; };
+  let qs = [];
+  if (!dom && n >= 10) { // пропорции Digital SAT
+    const w = {alg: .35, adv: .35, psda: .15, geo: .15}, cnt = {}; let left = n;
+    DOMAINS.forEach((d, i) => { cnt[d.k] = i === DOMAINS.length - 1 ? left : Math.round(n * w[d.k]); left -= cnt[d.k]; });
+    DOMAINS.forEach(d => { qs = qs.concat(draw(TASKS.filter(t => domOf(t.s).k === d.k), cnt[d.k])); });
+    qs.sort((a, b) => "emh".indexOf(a.d) - "emh".indexOf(b.d) || Math.random() - .5); // как на SAT: от простых к сложным
+  } else qs = draw(TASKS.filter(t => !dom || domOf(t.s).k === dom), n);
+  T = {qs, i: 0, ans: {}, sec: {}, flags: new Set(), start: Date.now(), end: 0, limit: n === 22 ? 35 * 60 : n * 90};
   T.timer = setInterval(() => { const el = $("tm"); if (!el) return; const left = T.limit - Math.floor((Date.now() - T.start) / 1000); el.textContent = fmtTime(Math.max(0, left)); if (left <= 0) finishTest(); }, 1000);
   renderTest();
 }
-function testAnswer(v){ const t = T.qs[T.i]; T.ans[t.id] = v; haptic(); if (T.i < T.qs.length - 1) { T.i++; renderTest(); } else renderTest(); }
+function testAnswer(v){ const t = T.qs[T.i]; T.ans[t.id] = v; T.sec[t.id] = (T.sec[t.id] || 0) + (Date.now() - T.at) / 1000; haptic(); if (T.i < T.qs.length - 1) { T.i++; renderTest(); } else renderTest(); }
 function finishTest(){
   clearInterval(T.timer); T.end = Date.now();
   let ok = 0;
@@ -586,16 +701,16 @@ function finishTest(){
     const a = T.ans[t.id]; let good = false;
     if (a !== undefined) good = t.c.length ? a === "ABCD".indexOf(t.a) : !!gridOk(a, t.a);
     T.res = T.res || {}; T.res[t.id] = good; if (good) ok++;
-    if (a !== undefined) record(t, good, a, true);
+    if (a !== undefined) record(t, good, a, true, T.sec[t.id] || 0);
   }
-  S.tests = (S.tests || []).concat([{t: T.end, n: T.qs.length, ok, sec: Math.round((T.end - T.start) / 1000)}]).slice(-20); save();
+  S.tests = (S.tests || []).concat([{t: T.end, n: T.qs.length, ok, sec: Math.round((T.end - T.start) / 1000)}]).slice(-20); save(); sendResult(); haptic(ok >= T.qs.length * .7 ? "ok" : "bad");
   T.review = null; renderTest();
 }
 function renderTestResult(){
   const n = T.qs.length, ok = T.qs.filter(t => T.res[t.id]).length, sec = Math.round((T.end - T.start) / 1000);
   let h = `<div class="card"><div class="score">${ok}/${n}<small>${ok === n ? "Идеально! 🎉" : ok >= n * 0.7 ? "Хорошо. Разбери ошибки ниже." : "Разбери ошибки — так и растёт балл."} · время ${fmtTime(sec)}</small></div>
     <div class="dots" style="justify-content:center">${T.qs.map((q, i) => `<button class="dot ${T.res[q.id] ? "ok" : "bad"} ${T.review === i ? "cur" : ""}" data-rv="${i}" type="button">${i + 1}</button>`).join("")}</div>
-    <div class="actions"><button class="btn ghost grow" type="button" id="tAgain">Ещё тест</button><button class="btn grow" type="button" id="tHome">На главную</button></div></div>`;
+    <div class="actions"><button class="btn ghost grow" type="button" id="tAgain">Ещё тест</button><button class="btn ghost grow" type="button" id="tShare">Поделиться</button><button class="btn grow" type="button" id="tHome">На главную</button></div></div>`;
   if (T.review !== null && T.review !== undefined) {
     const t = T.qs[T.review], a = T.ans[t.id], ok1 = T.res[t.id];
     h += `<div class="card">${taskHtml(t, a !== undefined ? {pick: a, ok: ok1} : null)}<div class="res ${ok1 ? "ok" : "bad"}" style="margin-top:14px"><h3>${ok1 ? "Верно ✓" : a === undefined ? "Без ответа" : "Неверно"} <span style="font-weight:500">${ok1 ? "" : "Правильный ответ: " + (t.c.length ? t.a : fmt(shownAnswer(t.a)))}</span></h3>${explainHtml(t)}</div></div>`;
@@ -605,15 +720,107 @@ function renderTestResult(){
 $("v-test").addEventListener("click", e => {
   const l = e.target.closest("[data-tlen]"); if (l) { S.tlen = +l.dataset.tlen; save(); renderTest(); return; }
   if (!T) return;
-  const o = e.target.closest(".opt"); if (o && !T.end) { testAnswer(+o.dataset.i); return; }
+  const o = e.target.closest(".opt"); if (o && !T.end) { if (o.classList.contains("cut")) { toggleCut(T.qs[T.i].id, +o.dataset.i); renderTest(); return; } testAnswer(+o.dataset.i); return; }
   const d = e.target.closest("[data-ti]"); if (d) { T.i = +d.dataset.ti; renderTest(); return; }
   if (e.target.closest("#tPrev")) { T.i--; renderTest(); return; }
   if (e.target.closest("#tNext")) { if (T.i < T.qs.length - 1) { T.i++; renderTest(); } else if (confirm("Завершить тест?")) finishTest(); return; }
   if (e.target.closest("#tFlag")) { const id = T.qs[T.i].id; T.flags.has(id) ? T.flags.delete(id) : T.flags.add(id); renderTest(); return; }
   const r = e.target.closest("[data-rv]"); if (r) { T.review = +r.dataset.rv; renderTestResult(); return; }
   if (e.target.closest("#tAgain")) { T = null; renderTest(); return; }
+  if (e.target.closest("#tShare")) { const n = T.qs.length, ok = T.qs.filter(t => T.res[t.id]).length; share(`SAT Math тест в тренажёре Math Maks: ${ok}/${n} за ${fmtTime(Math.round((T.end - T.start) / 1000))} ${ok === n ? "🎯" : "💪"} Попробуй сам 👇`); return; }
+  if (e.target.closest("#tools")) { openSheet(); return; }
+  const x = e.target.closest(".x[data-x]"); if (x && !T.end) { toggleCut(T.qs[T.i].id, +x.dataset.x); renderTest(); return; }
   if (e.target.closest("#tHome")) { T = null; go("home"); return; }
   const k = e.target.closest(".keys button"); if (k) { keyPress(k.dataset.k); return; }
+});
+
+/* ---------- tools sheet: formulas, scratch pad, Desmos ---------- */
+let TOOL = "ref";
+const REF = `<div class="ref">
+<p class="tip">Всё, что ниже в разделе «Reference», на экзамене есть по кнопке. Но знать наизусть быстрее.</p>
+<h3>Reference (дают на SAT)</h3>
+<p><b>Круг:</b> A = πr², C = 2πr. Дуга и сектор: доля = угол/360°.</p>
+<p><b>Прямоугольник:</b> A = lw. <b>Треугольник:</b> A = (1/2)bh.</p>
+<p><b>Пифагор:</b> a² + b² = c². Тройки: 3-4-5, 5-12-13, 8-15-17, 7-24-25.</p>
+<p><b>Особые треугольники:</b> 45°-45°-90° → x, x, x√2. 30°-60°-90° → x, x√3, 2x.</p>
+<p><b>Объёмы:</b> призма/цилиндр V = (площадь основания)·h; цилиндр V = πr²h; шар V = (4/3)πr³; конус V = (1/3)πr²h; пирамида V = (1/3)·S·h.</p>
+<p>Сумма углов треугольника 180°, многоугольника с n сторонами 180°(n−2). В окружности 360°, 2π радиан; радианы = градусы·π/180.</p>
+<h3>Algebra</h3>
+<p><b>Наклон:</b> m = (y₂−y₁)/(x₂−x₁). Прямая: y = mx + b; через точку: y − y₁ = m(x − x₁).</p>
+<p>Параллельные прямые: одинаковый m. Перпендикулярные: m₁·m₂ = −1.</p>
+<p><b>Системы:</b> нет решений → одинаковый наклон, разные b. Бесконечно решений → одно и то же уравнение.</p>
+<p><b>Неравенства:</b> при умножении/делении на отрицательное знак переворачивается.</p>
+<h3>Advanced Math</h3>
+<p><b>Квадратное:</b> x = (−b ± √(b²−4ac))/(2a). Дискриминант D = b²−4ac: D&gt;0 два корня, D=0 один, D&lt;0 ни одного.</p>
+<p><b>Виет:</b> x₁ + x₂ = −b/a, x₁·x₂ = c/a.</p>
+<p><b>Вершина параболы:</b> x = −b/(2a); y = a(x−h)² + k, вершина (h, k). Корни в f(x) = a(x−p)(x−q); ось симметрии x = (p+q)/2.</p>
+<p><b>Формулы:</b> (a+b)² = a²+2ab+b², (a−b)² = a²−2ab+b², a²−b² = (a−b)(a+b).</p>
+<p><b>Степени:</b> xᵃ·xᵇ = x^(a+b), (xᵃ)ᵇ = x^(ab), x^(−a) = 1/xᵃ, x^(1/n) = ⁿ√x, x^(m/n) = ⁿ√(xᵐ).</p>
+<p><b>Экспонента:</b> y = a(1 + r)ᵗ рост, y = a(1 − r)ᵗ убывание. «Удваивается каждые 5 лет» → a·2^(t/5).</p>
+<p><b>Остаток от деления многочлена:</b> остаток при делении p(x) на (x − k) равен p(k). (x − k) — множитель ⇔ p(k) = 0.</p>
+<p><b>Окружность:</b> (x−h)² + (y−k)² = r². Если дана в общем виде — выделяй полный квадрат.</p>
+<h3>Problem-Solving & Data</h3>
+<p><b>Процент:</b> часть = процент·целое. Изменение = (новое − старое)/старое · 100%. Процент от процента — перемножай множители: +20% затем −20% ≠ 0.</p>
+<p><b>Среднее</b> = сумма/количество → сумма = среднее·n. <b>Медиана</b> — середина упорядоченного ряда. <b>Мода</b> — самое частое. <b>Размах</b> = max − min.</p>
+<p>Выброс (очень большое/маленькое значение) сильно меняет среднее и размах, почти не меняет медиану. Стандартное отклонение: данные «кучнее» → меньше.</p>
+<p><b>Вероятность</b> = нужные/все. В таблице: читай строку/столбец, который задан условием («из тех, кто…»).</p>
+<p><b>Margin of error:</b> интервал = оценка ± погрешность. Больше выборка → меньше погрешность. Выборка случайная → вывод можно обобщить на популяцию; случайное распределение по группам → можно говорить о причине.</p>
+<p><b>Единицы:</b> умножай на дробь, равную 1: 3 ч · (60 мин / 1 ч).</p>
+<h3>Geometry & Trig</h3>
+<p><b>SOH-CAH-TOA:</b> sin = противолежащий/гипотенуза, cos = прилежащий/гипотенуза, tan = противолежащий/прилежащий.</p>
+<p>sin x = cos(90° − x). sin²x + cos²x = 1. Подобные треугольники: стороны пропорциональны, углы равны.</p>
+<p>Вписанный угол = половина дуги; центральный угол = дуге. Касательная ⊥ радиусу в точке касания.</p>
+<p>Длина дуги = (θ/360°)·2πr, площадь сектора = (θ/360°)·πr². Масштаб длины k → площадь k², объём k³.</p>
+<h3>Desmos за 10 секунд</h3>
+<p>Система уравнений — введи оба, точка пересечения = ответ. Корни — введи y = …, нажми на серые точки. «Сколько решений» — считай пересечения. Вершина, max/min — тоже серые точки. Таблица данных: кнопка «+» → table, затем y₁ ~ mx₁ + b даёт регрессию (среднее, медиана через mean(), median()).</p>
+</div>`;
+let SCR = {}, scrColor = "#1d4ed8";
+function openSheet(tool){
+  if (tool) TOOL = tool;
+  $("sheet").hidden = false; renderSheet(); haptic();
+  if (TG && TG.BackButton) { try { TG.BackButton.show(); TG.BackButton.onClick(closeSheet); } catch(e) {} }
+}
+function closeSheet(){ $("sheet").hidden = true; if (TG && TG.BackButton) { try { TG.BackButton.offClick(closeSheet); TG.BackButton.hide(); } catch(e) {} } }
+function renderSheet(){
+  document.querySelectorAll("#sheet [data-tool]").forEach(b => b.classList.toggle("on", b.dataset.tool === TOOL));
+  const b = $("shBody");
+  if (TOOL === "ref") { b.innerHTML = REF; return; }
+  if (TOOL === "scr") { b.innerHTML = `<div class="scr-bar">${["#1d4ed8","#b91c1c","#15803d"].map(c => `<button class="col ${scrColor === c ? "on" : ""}" style="background:${c}" data-col="${c}" type="button" aria-label="Цвет"></button>`).join("")}<span class="grow"></span><button class="btn sm ghost" type="button" id="scrUndo">↶ Отменить</button><button class="btn sm ghost" type="button" id="scrClear">Очистить</button></div><div style="height:calc(100% - 44px)"><canvas id="scr"></canvas></div>`; initScratch(); return; }
+  if (TOOL === "calc") { b.innerHTML = `<div id="desmosBox"></div>`; initDesmos(); }
+}
+const scrKey = () => VIEW === "test" && T && !T.end ? "t" + T.qs[T.i].id : cur ? "p" + cur.id : "x";
+function initScratch(){
+  const c = $("scr"), box = c.parentElement, dpr = Math.min(2, devicePixelRatio || 1);
+  const W = box.clientWidth, H = Math.max(200, box.clientHeight);
+  c.width = W * dpr; c.height = H * dpr; c.style.width = W + "px"; c.style.height = H + "px";
+  const ctx = c.getContext("2d"); ctx.scale(dpr, dpr); ctx.lineCap = "round"; ctx.lineJoin = "round"; ctx.lineWidth = 2.5;
+  const strokes = SCR[scrKey()] || (SCR[scrKey()] = []);
+  const redraw = () => { ctx.clearRect(0, 0, W, H); for (const st of strokes) { ctx.strokeStyle = st.c; ctx.beginPath(); st.p.forEach((pt, i) => i ? ctx.lineTo(pt[0], pt[1]) : ctx.moveTo(pt[0], pt[1])); ctx.stroke(); } };
+  redraw();
+  let st = null;
+  const pos = e => { const r = c.getBoundingClientRect(); return [e.clientX - r.left, e.clientY - r.top]; };
+  c.onpointerdown = e => { e.preventDefault(); c.setPointerCapture(e.pointerId); st = {c: scrColor, p: [pos(e)]}; strokes.push(st); };
+  c.onpointermove = e => { if (!st) return; e.preventDefault(); const pt = pos(e); st.p.push(pt); const n = st.p.length; ctx.strokeStyle = st.c; ctx.beginPath(); ctx.moveTo(...st.p[n - 2]); ctx.lineTo(...pt); ctx.stroke(); };
+  c.onpointerup = c.onpointercancel = () => { if (st && st.p.length === 1) { ctx.fillStyle = st.c; ctx.beginPath(); ctx.arc(st.p[0][0], st.p[0][1], 1.5, 0, 7); ctx.fill(); } st = null; };
+  $("scrUndo").onclick = () => { strokes.pop(); redraw(); };
+  $("scrClear").onclick = () => { strokes.length = 0; redraw(); };
+}
+let DESM = null;
+function initDesmos(){
+  const box = $("desmosBox");
+  const make = () => { try { box.innerHTML = ""; DESM = Desmos.GraphingCalculator(box, {keypad: true, expressions: true, settingsMenu: false, zoomButtons: true, border: false, invertedColors: document.documentElement.dataset.theme === "dark", language: "ru"}); if (DESM_STATE) DESM.setState(DESM_STATE); } catch(e) { fail(); } };
+  const fail = () => { box.innerHTML = `<div class="empty">Desmos не загрузился (нет интернета или блокировка).<br><br><button class="btn sm" type="button" id="dOpen">Открыть Desmos в браузере</button></div>`; $("dOpen").onclick = () => { try { TG ? TG.openLink("https://www.desmos.com/calculator") : window.open("https://www.desmos.com/calculator"); } catch(e) {} }; };
+  if (window.Desmos) return make();
+  box.innerHTML = '<div class="empty">Загружаю Desmos…</div>';
+  const sc = document.createElement("script"); sc.src = "https://www.desmos.com/api/v1.10/calculator.js?apiKey=dcb31709b452b1cf9dc26972add0f7d2"; sc.onload = make; sc.onerror = fail;
+  const to = setTimeout(() => { if (!window.Desmos) fail(); }, 12000); sc.onload = () => { clearTimeout(to); make(); };
+  document.head.appendChild(sc);
+}
+let DESM_STATE = null;
+$("sheet").addEventListener("click", e => {
+  if (e.target.closest("[data-close]")) { if (DESM) { try { DESM_STATE = DESM.getState(); } catch(x) {} } closeSheet(); return; }
+  const t = e.target.closest("[data-tool]"); if (t) { if (DESM && TOOL === "calc") { try { DESM_STATE = DESM.getState(); } catch(x) {} DESM.destroy && DESM.destroy(); DESM = null; } TOOL = t.dataset.tool; renderSheet(); return; }
+  const c = e.target.closest("[data-col]"); if (c) { scrColor = c.dataset.col; document.querySelectorAll("#sheet .col").forEach(x => x.classList.toggle("on", x.dataset.col === scrColor)); }
 });
 
 /* ---------- server: leaderboard and admin ---------- */
