@@ -30,4 +30,6 @@ jobs:
           APP="https://mathmaks4406-maker.github.io/math-maks-app/"
           curl -sf "$API/setWebhook" -d url=https://math-maks-api.math-maks4406.workers.dev/tg/hook -d secret_token="$S" -d allowed_updates='["message"]' -d drop_pending_updates=true | grep -o '"ok":true'
           curl -sf "$API/setChatMenuButton" -H 'Content-Type: application/json' -d "{\"menu_button\":{\"type\":\"web_app\",\"text\":\"Тренажёр\",\"web_app\":{\"url\":\"$APP\"}}}" | grep -o '"ok":true'
+          curl -sf "$API/setMyDescription" --data-urlencode "description@worker/bot/description.txt" | grep -o '"ok":true'
+          curl -sf "$API/setMyShortDescription" --data-urlencode "short_description@worker/bot/short.txt" | grep -o '"ok":true'
           curl -sf "$API/setMyCommands" -H 'Content-Type: application/json' -d '{"commands":[{"command":"start","description":"Как пользоваться тренажёром"}]}' | grep -o '"ok":true'
