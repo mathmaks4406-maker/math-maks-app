@@ -496,7 +496,7 @@ function renderHome(){
   h += `<div class="card"><h2>Карта тем</h2>` + DOMAINS.map(d => {
     const st = d.s.map(s => ({s, ...skillStat(s)}));
     const seen = st.reduce((a, x) => a + x.seen, 0), n = st.reduce((a, x) => a + x.n, 0);
-    return `<div class="dom-h"><span>${d.n}</span><span>${seen}/${n}</span></div><div class="topics">` + st.map(x => `<button class="topic" data-skill="${x.s}" data-all="1" type="button" style="text-align:left"><span class="nm">${SKILL[x.s]}</span><span class="pc">${x.seen ? x.pct + "% · " + x.seen + "/" + x.n : x.n + " задач"}</span><span class="bar"><i class="${cls(x.pct)}" style="width:${x.seen ? Math.max(3, x.pct) : 0}%"></i></span></button>`).join("") + `</div>`;
+    return `<div class="dom-h"><span>${d.n}</span><span>${seen} из ${n}</span></div><div class="topics">` + st.map(x => `<button class="topic" data-skill="${x.s}" data-all="1" type="button" style="text-align:left"><span class="nm">${SKILL[x.s]}</span><span class="pc">${x.seen ? (x.seen >= 3 ? x.pct + "% · " : "") + "верно " + x.ok + " из " + x.seen : x.n + " задач"}</span><span class="bar"><i class="${cls(x.pct)}" style="width:${x.seen >= 3 ? Math.max(3, x.pct) : 0}%"></i></span></button>`).join("") + `</div>`;
   }).join("") + `</div>`;
   h += `<div class="card"><h2>Настройки</h2><div class="row"><span class="grow">Цель в день</span>${[5,10,20].map(g => `<button class="chip ${S.goal === g ? "on" : ""}" data-goal="${g}" type="button">${g}</button>`).join("")}</div>
     <p class="muted" style="margin:12px 0 0">Прогресс привязан к твоему Telegram. Канал: <a href="https://t.me/Math_Maks" target="_blank" rel="noopener">@Math_Maks</a></p></div>`;
@@ -517,10 +517,12 @@ function statsCard(){
   const pc = x => x[0] ? Math.round(100 * x[1] / x[0]) + "%" : "—";
   const avg = tot[0] ? Math.round(tot[2] / tot[0]) : -1;
   return `<div class="card"><h2>Статистика</h2>
-    <div class="row" style="justify-content:space-between"><span class="muted">14 дней · попыток</span><span class="muted">за неделю ${wk[0]} · верно ${wk[0] ? Math.round(100 * wk[1] / wk[0]) + "%" : "—"}</span></div>
+    <div class="row" style="justify-content:space-between"><span class="muted">Попытки за 14 дней</span><span class="muted">${wk[0] ? "за 7 дней " + wk[0] + " · верно " + Math.round(100 * wk[1] / wk[0]) + "%" : ""}</span></div>
+    ${mx === 1 && !vals.some(v => v[0]) ? `<p class="muted" style="margin:8px 0 0">График заполняется с 3 ноября: дни считаются с этого обновления. Реши задачу — и появится первый столбик.</p>` : ""}
     <div class="dayz">${vals.map((v, i) => `<i class="${i === 13 ? "t" : ""}" style="height:${Math.max(4, Math.round(100 * v[0] / mx))}%" title="${v[0]}"></i>`).join("")}</div>
     <div class="dayl">${days.map(d => `<span>${"вс пн вт ср чт пт сб".split(" ")[d.getDay()]}</span>`).join("")}</div>
-    <div class="stats"><div class="stat"><b style="color:var(--ok)">${pc(byD.e)}</b><span>Easy</span></div><div class="stat"><b style="color:var(--warn)">${pc(byD.m)}</b><span>Medium</span></div><div class="stat"><b style="color:var(--bad)">${pc(byD.h)}</b><span>Hard</span></div></div>
+    <p class="muted" style="margin:14px 0 0">Сколько попыток верных, за всё время</p>
+    <div class="stats" style="margin-top:6px">${["e","m","h"].map(k => `<div class="stat"><b style="color:${byD[k][0] ? "var(--" + {lo:"bad",mid:"warn",hi:"ok"}[cls(Math.round(100 * byD[k][1] / byD[k][0]))] + ")" : "var(--mut)"}">${pc(byD[k])}</b><span>${DIFF[k]} · ${byD[k][1]} из ${byD[k][0]}</span></div>`).join("")}</div>
     <div class="row" style="margin-top:12px"><span class="muted grow">${avg >= 0 ? "Среднее время на задачу: " + fmtTime(avg) + " (на SAT ≈ 1:35)" : "Время на задачу появится после первых решений."}</span><button class="btn sm ghost" id="hShare">Поделиться</button></div></div>`;
 }
 const cls = p => p < 50 ? "lo" : p < 80 ? "mid" : "hi";
