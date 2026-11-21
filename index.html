@@ -25,6 +25,8 @@ h1,h2,h3{margin:0;font-weight:700;letter-spacing:-.01em}
 .brand{display:flex;align-items:center;gap:10px;font-weight:800;font-size:17px}
 .brand i{display:inline-grid;place-items:center;width:30px;height:30px;border-radius:9px;background:var(--grad);color:#fff;font-style:normal;font-weight:900;font-size:17px}
 .brand small{display:block;font-weight:500;font-size:12px;color:var(--mut)}
+.top .pill{max-width:46%;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;display:block}
+.brand{min-width:0}
 .pill{display:inline-flex;align-items:center;gap:6px;padding:6px 10px;border-radius:999px;background:var(--card);border:1px solid var(--line);font-size:13px;font-weight:600;color:var(--mut)}
 .card{background:var(--card);border:1px solid var(--line);border-radius:var(--r);padding:16px;margin:0 0 12px;box-shadow:var(--shadow)}
 .card.hero-c{background:var(--grad);border:0;color:#fff}
@@ -71,6 +73,12 @@ select{width:100%;min-height:44px;padding:0 12px;border-radius:12px;border:1px s
 .stat b{display:block;font-size:20px}
 .stat span{font-size:11px;color:var(--mut)}
 .flame{font-size:22px}
+.hero .row{flex-wrap:wrap}.hero .btn{white-space:nowrap}
+@media (max-width:360px){.hero{gap:8px}.ring,.ring svg{width:74px;height:74px}.ring b{font-size:15px}.stat b{font-size:17px}.stat{padding:8px 4px}.hero h2{font-size:18px!important}}
+.actions.stick{position:sticky;bottom:calc(var(--tab) + env(safe-area-inset-bottom) + 8px);z-index:5}
+.actions.stick .btn{box-shadow:0 6px 18px rgba(59,108,246,.35)}
+.tres{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:14px}.tres .btn{white-space:nowrap;padding:0 8px}.tres .full{grid-column:1/3}
+.place{margin-top:10px;display:inline-block;padding:5px 11px;border-radius:999px;background:rgba(255,255,255,.2);color:#fff;font-size:13px;font-weight:700}
 .topics{display:flex;flex-direction:column;gap:9px}
 .topic{display:grid;grid-template-columns:1fr auto;gap:4px 10px;align-items:center;padding:4px 0}
 .topic .nm{font-size:14px;font-weight:600}
@@ -112,9 +120,12 @@ sup{font-size:.7em;line-height:0}
 .keys button{min-height:44px;border-radius:12px;background:var(--bg);border:1px solid var(--line);font-size:19px;font-weight:600}
 .pv{min-height:26px;margin-top:8px;font-size:18px;text-align:center;color:var(--mut)}
 .res{margin-top:14px;border-radius:14px;padding:14px;border:1.5px solid}
-.res.ok{border-color:var(--ok);background:var(--okbg)}.res.bad{border-color:var(--bad);background:var(--badbg)}
+.res.ok{border-color:var(--ok);background:var(--okbg)}.res.bad{border-color:var(--warn);background:var(--warnbg)}
 .res h3{font-size:16px;margin-bottom:8px}
-.res.ok h3{color:var(--ok)}.res.bad h3{color:var(--bad)}
+.res.ok h3{color:var(--ok)}.res.bad h3{color:var(--warn)}
+.res.pop{animation:pop .35s ease-out}
+@keyframes pop{0%{transform:scale(.96);opacity:.4}60%{transform:scale(1.015)}100%{transform:scale(1);opacity:1}}
+@media (prefers-reduced-motion:reduce){.res.pop{animation:none}}
 .ex{background:var(--card);border-radius:12px;padding:12px;margin-top:8px}
 .ex p{margin:0 0 8px;font-size:15px;line-height:1.5}
 .ex p:last-child{margin-bottom:0}
@@ -153,16 +164,25 @@ sup{font-size:.7em;line-height:0}
 .lb{list-style:none;margin:0;padding:0}
 .lb li{display:flex;align-items:center;gap:10px;padding:10px 4px;border-bottom:1px solid var(--line)}
 .lb li:last-child{border-bottom:0}
-.lb .pl{width:28px;text-align:center;font-weight:800;color:var(--mut)}
-.lb li:nth-child(1) .pl{color:#d4a017}.lb li:nth-child(2) .pl{color:#9aa4b2}.lb li:nth-child(3) .pl{color:#b87333}
-.lb .nm{flex:1;font-weight:600}
-.lb .st{font-size:12px;color:var(--mut)}
+.lb .pl{flex:0 0 30px;text-align:center;font-weight:800;color:var(--mut);font-variant-numeric:tabular-nums}
+.lb .pl.m1{color:#d4a017}.lb .pl.m2{color:#9aa4b2}.lb .pl.m3{color:#b87333}
+.lb .nm{flex:1;min-width:0;font-weight:600}
+.lb .nmt{display:block;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.lb .st{display:block;font-size:12px;font-weight:500;color:var(--mut)}
+.lb li>b{flex:0 0 auto;min-width:28px;text-align:right;font-variant-numeric:tabular-nums}
+.mecard{display:flex;align-items:center;justify-content:space-between;gap:10px;padding:12px 14px;border-radius:14px;background:var(--acc2);border:1.5px solid var(--acc)}
+.mecard b{display:block;font-size:22px}.mecard b small{font-size:13px;font-weight:600;color:var(--mut)}
+.mecard .r{text-align:right}.mecard .r b{font-size:22px;color:var(--acc)}
+.grow-c{display:flex;gap:10px;align-items:flex-start;margin-top:10px;padding:10px 12px;border-radius:12px;background:var(--okbg);font-size:14px}
+.grow-c>span{font-size:18px;line-height:1.2}
 .lb li.me{background:var(--acc2);border-radius:10px;padding-left:8px;padding-right:8px}
 .adm-t{width:100%;border-collapse:collapse;font-size:14px}
 .adm-t th,.adm-t td{text-align:left;padding:7px 4px;border-bottom:1px solid var(--line)}
 .adm-t tr.hid td{opacity:.45}
 .lnk{color:var(--acc);font-weight:600}
 .name-screen{min-height:70vh;display:flex;flex-direction:column;justify-content:center}
+.intro{margin-top:12px;background:var(--card);border:1px solid var(--line);border-radius:var(--r);padding:12px 14px}
+.intro p{margin:0 0 6px;font-size:15px}.intro p:last-child{margin:0}
 .name-screen input{width:100%;min-height:52px;padding:0 16px;border-radius:14px;border:1.5px solid var(--line);background:var(--card);color:var(--ink);font:inherit;font-size:18px;margin:12px 0}
 .help p{margin:0 0 8px;font-size:14px}
 .toast{position:fixed;left:50%;bottom:calc(var(--tab) + 14px);transform:translateX(-50%);background:var(--ink);color:var(--bg);padding:10px 16px;border-radius:12px;font-size:14px;font-weight:600;z-index:30;opacity:0;transition:opacity .2s;pointer-events:none}
@@ -226,9 +246,16 @@ sup{font-size:.7em;line-height:0}
   </header>
 
   <section id="nameScreen" class="name-screen" hidden>
-    <h1 style="font-size:24px">Как тебя зовут?</h1>
-    <p class="muted" style="margin:6px 0 0">Под этим именем сохранится прогресс и место в рейтинге.</p>
-    <form id="nf"><input id="ni" maxlength="30" autocomplete="off" placeholder="Имя"><button class="btn wide" type="submit">Начать</button></form>
+    <h1 style="font-size:24px">Тренажёр SAT Math</h1>
+    <div class="intro">
+      <p>📚 <b>1925 настоящих задач</b> College Board с разбором на русском.</p>
+      <p>🎯 <b>Цель — 5 задач в день.</b> Это около 10 минут.</p>
+      <p>✅ Ответил — сразу видишь, верно ли, и как решать.</p>
+      <p>🏆 Решённые задачи идут в рейтинг учеников.</p>
+    </div>
+    <h2 style="font-size:18px;margin-top:18px">Как тебя зовут?</h2>
+    <p class="muted" style="margin:4px 0 0">Имя увидят в рейтинге. Можно с фамилией, чтобы тебя не перепутали.</p>
+    <form id="nf"><input id="ni" maxlength="30" autocomplete="off" placeholder="Имя и фамилия"><button class="btn wide" type="submit">Начать</button></form>
     <p class="muted" style="margin-top:14px">Задача дня и приёмы SAT Math: <a href="https://t.me/Math_Maks" target="_blank" rel="noopener">@Math_Maks</a></p>
   </section>
 
@@ -292,38 +319,55 @@ const haptic = kind => { try { TG && TG.HapticFeedback && (kind === "ok" || kind
 
 /* ---------- storage ---------- */
 const KEY = "mm_sat_trainer_v3";
-let S = {name:"", done:{}, best:0, streak:0, days:[], goal:10, marks:[], last:0, f:{dom:"", skill:"", diff:"", mode:"all"}, ev:[]};
+// копия на устройстве своя для каждого аккаунта Telegram (на одном телефоне могут решать двое)
+const TGU = TG && TG.initDataUnsafe && TG.initDataUnsafe.user ? TG.initDataUnsafe.user.id : 0;
+const LKEY = TGU ? KEY + "_u" + TGU : KEY;
+let S = {name:"", done:{}, best:0, streak:0, days:[], goal:5, marks:[], last:0, f:{dom:"", skill:"", diff:"", mode:"all"}, ev:[]};
 const D0 = 20260101;
 const ymdFromOff = o => { const d = new Date(2026, 0, 1 + o); return d.getFullYear() * 10000 + (d.getMonth() + 1) * 100 + d.getDate(); };
 const packDone = d => Object.entries(d).map(([id,r]) => id + ":" + r.n + ":" + r.ok + ":" + r.last + (r.day ? ":" + dayDiff(D0, r.day) + (r.st ? ":" + r.st : "") : "")).join(";");
 const unpackDone = str => { const d = {}; (str || "").split(";").forEach(x => { const p = x.split(":").map(Number); if (p.length >= 4 && p[0]) { const r = {n:p[1], ok:p[2], last:p[3]}; if (p.length > 4) r.day = ymdFromOff(p[4]); if (p.length > 5) r.st = p[5]; d[p[0]] = r; } }); return d; };
-const cloudGet = keys => new Promise(res => { try { CLOUD.getItems(keys, (err, v) => res(err ? {} : (v || {}))); } catch(e) { res({}); } });
+// ошибка чтения из Telegram → null (раньше было {} и следующее сохранение затирало прогресс пустым)
+const cloudGet = keys => new Promise(res => { let t = setTimeout(() => res(null), 6000); try { CLOUD.getItems(keys, (err, v) => { clearTimeout(t); res(err ? null : (v || {})); }); } catch(e) { clearTimeout(t); res(null); } });
 const cloudSet = (k, v) => { try { CLOUD.setItem(k, v, () => {}); } catch(e) {} };
 const PK = ["p0","p1","p2","p3","p4","p5","p6","p7","p8","p9","p10","p11"];
+// из двух копий одной задачи берём ту, где попыток больше (прогресс никогда не уменьшается)
+function mergeDone(a, b){ for (const [id, r] of Object.entries(b || {})) { const x = a[id]; if (!x || r.n > x.n || (r.n === x.n && (r.day || 0) > (x.day || 0))) a[id] = Object.assign({}, x || {}, r); } return a; }
+const packEv = ev => ev.map(e => e[0] + ":" + e[1] + ":" + e[2].toString(36)).join(";");
+const unpackEv = s => (s || "").split(";").filter(Boolean).map(x => { const p = x.split(":"); return [+p[0], +p[1], parseInt(p[2], 36)]; }).filter(e => e[0] > 0 && e[2] > 0);
+let CLOUD_OK = false, lastParts = {};
+function readLocal(){ try { const raw = TGU ? localStorage.getItem(LKEY) : (localStorage.getItem(KEY) || localStorage.getItem("mm_sat_trainer_v1")); return raw ? JSON.parse(raw) : null; } catch(e) { return null; } }
 async function load(){
+  const loc = readLocal();
   if (CLOUD) {
-    const v = await cloudGet(["meta3","meta","st3"].concat(PK));
-    try { if (v.meta3) Object.assign(S, JSON.parse(v.meta3)); else if (v.meta) Object.assign(S, JSON.parse(v.meta)); } catch(e) {}
-    try { if (v.st3) Object.assign(S, JSON.parse(v.st3)); } catch(e) {}
-    S.done = unpackDone(PK.map(k => v[k]).filter(Boolean).join(";"));
-  } else {
-    try { const raw = localStorage.getItem(KEY) || localStorage.getItem("mm_sat_trainer_v1"); if (raw) S = Object.assign(S, JSON.parse(raw)); } catch(e) {}
-  }
-  S.days = S.days || []; S.marks = S.marks || []; S.ev = S.ev || []; S.goal = S.goal || 10; S.ds = S.ds || {}; S.tests = S.tests || [];
+    let v = await cloudGet(["meta3","meta","st3","ev3"].concat(PK));
+    if (!v) v = await cloudGet(["meta3","meta","st3","ev3"].concat(PK));
+    if (v) {
+      CLOUD_OK = true;
+      try { if (v.meta3) Object.assign(S, JSON.parse(v.meta3)); else if (v.meta) Object.assign(S, JSON.parse(v.meta)); } catch(e) {}
+      try { if (v.st3) Object.assign(S, JSON.parse(v.st3)); } catch(e) {}
+      S.done = unpackDone(PK.map(k => v[k]).filter(Boolean).join(";"));
+      PK.forEach(k => { lastParts[k] = v[k] || ""; });
+      S.ev = unpackEv(v.ev3);
+      if (loc) { if (!S.name && loc.name) S.name = loc.name; mergeDone(S.done, loc.done); const seen = new Set(S.ev.map(e => e.join())); (loc.ev || []).forEach(e => { if (!seen.has(e.join())) S.ev.push(e); }); }
+    } else if (loc) { S = Object.assign(S, loc); }
+  } else if (loc) S = Object.assign(S, loc);
+  S.days = S.days || []; S.marks = S.marks || []; S.ev = S.ev || []; S.goal = S.goal || 5; S.ds = S.ds || {}; S.tests = S.tests || []; S.done = S.done || {};
   if (!S.name && TG && TG.initDataUnsafe && TG.initDataUnsafe.user) S.suggest = TG.initDataUnsafe.user.first_name || "";
 }
 function save(){
   const meta = {name:S.name, best:S.best, streak:S.streak, days:S.days.slice(-70), goal:S.goal, marks:S.marks.slice(-300), last:S.last, f:S.f};
   const dk = Object.keys(S.ds).sort(); while (dk.length > 60) delete S.ds[dk.shift()];
   const st = {ds: S.ds, tests: S.tests.slice(-20), tlen: S.tlen, tdom: S.tdom};
-  if (CLOUD) {
-    cloudSet("meta3", JSON.stringify(meta)); cloudSet("st3", JSON.stringify(st));
+  S.ev = S.ev.slice(-200); let evs = packEv(S.ev); while (evs.length > 4000) { S.ev.shift(); evs = packEv(S.ev); }
+  if (CLOUD && CLOUD_OK) {
+    cloudSet("meta3", JSON.stringify(meta)); cloudSet("st3", JSON.stringify(st)); cloudSet("ev3", evs);
     const p = packDone(S.done), parts = [];
     for (let i = 0; i < p.length; ) { let j = Math.min(p.length, i + 3900); if (j < p.length) j = p.lastIndexOf(";", j) + 1 || j; parts.push(p.slice(i, j).replace(/;$/, "")); i = j; }
-    PK.forEach((k, i) => cloudSet(k, parts[i] || ""));
-  } else {
-    try { localStorage.setItem(KEY, JSON.stringify(Object.assign({}, meta, st, {done:S.done}))); } catch(e) {}
+    PK.forEach((k, i) => { const v = parts[i] || ""; if (lastParts[k] !== v) { cloudSet(k, v); lastParts[k] = v; } });
   }
+  // копия на устройстве — всегда: страховка, если хранилище Telegram не ответило
+  try { localStorage.setItem(LKEY, JSON.stringify(Object.assign({}, meta, st, {done:S.done, ev:S.ev}))); } catch(e) {}
 }
 
 /* ---------- math formatting: a/b -> stacked fraction, ^(..) -> sup ---------- */
@@ -376,9 +420,9 @@ function qhtml(q){
 }
 
 /* ---------- answer checking for grid-in ---------- */
-function val(x){
-  x = String(x).trim().replace(/\s+/g,"").replace(/[−–]/g,"-").replace(/^\$/,"");
-  if (/^-?\d*,\d+$/.test(x)) x = x.replace(",", ".");
+function val(x, commaThousands){
+  x = String(x).trim().replace(/\s+/g,"").replace(/[−–]/g,"-").replace(/^\$/,"").replace(/^\+/,"").replace(/%$/,"");
+  if (!commaThousands && /^-?\d*,\d+$/.test(x)) x = x.replace(",", ".");
   x = x.replace(/,/g, "");
   let m = x.match(/^(-?)(\d*\.?\d+)\/(\d*\.?\d+)$/);
   if (m) { const d = parseFloat(m[3]); return d ? (m[1]?-1:1) * parseFloat(m[2]) / d : NaN; }
@@ -386,8 +430,10 @@ function val(x){
   return NaN;
 }
 function gridOk(input, answer){
-  const u = val(input); if (isNaN(u)) return null;
-  return answer.split(/,\s+/).some(a => { const v = val(a); return !isNaN(v) && Math.abs(u - v) < 1e-3 * Math.max(1, Math.abs(v) / 100); });
+  // «2,5» — это 2.5, но «15,000» — это 15000: если запятая одна, пробуем оба прочтения
+  const us = [val(input)]; if (/^\s*-?\d{1,3},\d{3}\s*$/.test(String(input).replace(/[−–]/g, "-"))) us.push(val(input, true));
+  if (us.every(isNaN)) return null;
+  return answer.split(/,\s+/).some(a => { const v = val(a); return !isNaN(v) && us.some(u => !isNaN(u) && Math.abs(u - v) < 1e-3 * Math.max(1, Math.abs(v) / 100)); });
 }
 const shownAnswer = a => { const seen = []; return a.split(/,\s+/).filter(x => { const v = Math.round(val(x) * 100); if (seen.includes(v)) return false; seen.push(v); return true; }).map(x => x.replace(/^-/,"−").replace(/^\./,"0.")).join(" или "); };
 
@@ -402,7 +448,6 @@ function streakNow(){
   let n = 1; for (let i = 1; i < days.length; i++) { if (dayDiff(days[i], days[i-1]) === 1) n++; else break; }
   return n;
 }
-const todayCount = () => Object.values(S.done).filter(r => r.day === today()).length + (S.ev || []).filter(e => e[2] === today()).length * 0;
 let toastT = null;
 function toast(msg){ const t = $("toast"); t.textContent = msg; t.classList.add("show"); clearTimeout(toastT); toastT = setTimeout(() => t.classList.remove("show"), 1800); }
 function qhtml2(q){
@@ -410,7 +455,9 @@ function qhtml2(q){
   const lines = q.split("\n"); let out = "", i = 0;
   while (i < lines.length) {
     if (lines[i].includes(" | ")) {
-      let rows = []; while (i < lines.length && lines[i].includes(" | ")) rows.push(lines[i++].split(" | "));
+      let rows = []; while (i < lines.length && lines[i].includes(" | ")) { const r = lines[i++].split(" | "); if (/^\s*\|/.test(r[0])) { r[0] = r[0].replace(/^\s*\|\s*/, ""); r.unshift(""); } rows.push(r); }
+      // у строки-заголовка бывает на одну ячейку меньше (пустой угол таблицы) — выравниваем
+      const w = Math.max(...rows.map(r => r.length)); rows = rows.map(r => r.length < w ? Array(w - r.length).fill("").concat(r) : r);
       out += "<table>" + rows.map((r, k) => "<tr>" + r.map(c => (k ? "<td>" : "<th>") + fmt(c.trim()) + (k ? "</td>" : "</th>")).join("") + "</tr>").join("") + "</table>";
     } else out += qhtml(lines[i++]);
   }
@@ -443,6 +490,7 @@ function record(t, ok, pickVal, fromTest, sec){
   if (!S.days.includes(today())) S.days.push(today());
   S.streak = streakNow();
   S.ev.push([t.id, ok ? 1 : 0, Date.now()]); if (S.ev.length > 200) S.ev = S.ev.slice(-200);
+  DIRTY.add(t.id);
   S.last = t.id;
   if (!fromTest) { save(); sendResult(); haptic(ok ? "ok" : "bad"); }
 }
@@ -460,7 +508,8 @@ function share(text){
   const link = "https://t.me/share/url?url=" + enc("https://t.me/MathMaks_SAT_bot") + "&text=" + enc(text);
   try { if (TG && TG.openTelegramLink) TG.openTelegramLink(link); else window.open(link, "_blank"); } catch(e) { window.open(link, "_blank"); }
 }
-const solvedToday = () => S.ev.filter(e => e[1] && new Date(e[2]).toDateString() === new Date().toDateString()).map(e => e[0]).filter((v, i, a) => a.indexOf(v) === i).length;
+// раньше считалось по очереди неотправленных попыток, которая очищается после отправки → «сегодня 0»
+const solvedToday = () => Object.values(S.done).filter(r => r.day === today() && r.last).length;
 
 /* ---------- views ---------- */
 let VIEW = "home";
@@ -470,6 +519,7 @@ function go(v){
   document.querySelectorAll("#tabs button").forEach(b => b.classList.toggle("on", b.dataset.v === v));
   window.scrollTo(0, 0);
   ({home: renderHome, practice: renderPractice, test: renderTest, board: renderBoard})[v]();
+  if (v === "board" && BOARD && Date.now() - boardAt > 5000 && !SYNCING) refreshBoard(); // список больше не «застывает»
 }
 document.querySelectorAll("#tabs button").forEach(b => b.addEventListener("click", () => { haptic(); go(b.dataset.v); }));
 
@@ -481,8 +531,9 @@ function renderHome(){
   const weak = Object.keys(SKILL).map(s => ({s, ...skillStat(s)})).filter(x => x.seen >= 3).sort((a, b) => a.pct - b.pct).slice(0, 3);
   const cont = S.last && byId[S.last] ? byId[S.last] : null;
   let h = `<div class="card hero-c"><div class="hero"><div>
-      <h2 style="font-size:20px;margin-bottom:4px">Привет, ${esc(S.name)}!</h2>
-      <p class="muted" style="margin:0;font-size:14px">${todayN >= goal ? "Цель на сегодня выполнена 🎉" : `Сегодня решено ${todayN} из ${goal}. ${todayN ? "Продолжай!" : "Начнём?"}`}</p>
+      <h2 style="font-size:20px;margin-bottom:4px">Привет, ${esc(S.name.split(" ")[0])}!</h2>
+      <p class="muted" style="margin:0;font-size:14px">${todayN >= goal ? "Цель на сегодня выполнена 🎉" : `Цель дня: ${goal} задач верно, это ~${goal * 2} минут. Сейчас ${todayN} из ${goal}.`}</p>
+      <button class="place" id="hPlace" type="button" hidden></button>
       <div class="row" style="margin-top:12px"><button class="btn sm" id="hStart">${cont && !S.done[cont.id] ? "Продолжить" : "Решать"}</button><button class="btn sm ghost" id="hTest">Тест 10 задач</button></div>
     </div>
     <div class="ring"><svg viewBox="0 0 92 92"><circle class="bgc" cx="46" cy="46" r="40"/><circle class="fgc" cx="46" cy="46" r="40" stroke-dasharray="${C}" stroke-dashoffset="${C * (1 - pct)}"/></svg><b>${todayN}<small>из ${goal}</small></b></div></div>
@@ -490,7 +541,7 @@ function renderHome(){
   </div>`;
   const due = reviewList().length;
   h += `<div class="card"><div class="srs"><b>${due}</b><div class="grow"><h2 style="margin-bottom:2px">Повторить</h2><p class="muted" style="margin:0">${due ? "Ошибки и задачи, которые пора закрепить: через 1, 3, 7, 14 и 30 дней." : "Пока нечего повторять. Решай новые задачи."}</p></div>${due ? `<button class="btn sm" id="hRev">Начать</button>` : ""}</div></div>`;
-  h += statsCard();
+  if (tries) h += statsCard();
   if (weak.length) h += `<div class="card"><h2>Подтянуть</h2><div class="topics">${weak.map(x => `<button class="topic" data-skill="${x.s}" type="button" style="text-align:left"><span class="nm">${SKILL[x.s]}</span><span class="pc">${x.pct}%</span><span class="bar"><i class="${cls(x.pct)}" style="width:${x.pct}%"></i></span></button>`).join("")}</div><p class="muted" style="margin:10px 0 0">Нажми на тему, чтобы решать только её ошибки.</p></div>`;
   if (S.marks.length) h += `<div class="card"><h2>Закладки · ${S.marks.length}</h2><div class="list">${S.marks.slice(-24).reverse().map(id => `<button class="cell ${S.done[id] ? (S.done[id].last ? "ok" : "bad") : ""}" data-open="${id}" type="button">№${id}</button>`).join("")}</div></div>`;
   h += `<div class="card"><h2>Карта тем</h2>` + DOMAINS.map(d => {
@@ -504,7 +555,16 @@ function renderHome(){
   $("hStart").onclick = () => { if (cont && !S.done[cont.id]) { go("practice"); openTask(cont.id); } else go("practice"); };
   $("hTest").onclick = () => { go("test"); };
   const rv = $("hRev"); if (rv) rv.onclick = () => { S.f = {dom: "", skill: "", diff: "", mode: "review"}; save(); go("practice"); pick(); };
+  updPlace();
   const sh = $("hShare"); if (sh) sh.onclick = () => share(`Мой прогресс в тренажёре SAT Math от Math Maks: решено ${solved} задач${streak ? ", " + streak + " дней подряд 🔥" : ""}. Присоединяйся 👇`);
+}
+// своё место в рейтинге — прямо на главной
+function updPlace(){
+  const el = $("hPlace"); if (!el) return;
+  const m = BOARD && (BOARD.meWeek || BOARD.me), wk = BOARD && BOARD.meWeek;
+  if (!m) { el.hidden = true; return; }
+  el.hidden = false; el.textContent = `🏆 ${m.place}-е место ${wk ? "за неделю" : "в рейтинге"} · из ${wk ? BOARD.weekTotal : BOARD.total} →`;
+  el.onclick = () => { boardMode = wk ? "week" : "all"; go("board"); };
 }
 function statsCard(){
   const days = []; for (let i = 13; i >= 0; i--) { const d = new Date(); d.setDate(d.getDate() - i); days.push(d); }
@@ -595,7 +655,7 @@ function taskHtml(t, g, opts){
     h += `<div class="opts ${figs ? "row" : ""}">` + t.c.map((c, i) => {
       const cls = g ? (o.reveal === false ? (i === g.pick ? "sel" : "") : (i === right ? "ok" : i === g.pick ? "bad" : "")) : "";
       const isCut = !fin && cut.has(i);
-      return `<div class="optw"><button class="opt ${cls} ${isCut ? "cut" : ""}" type="button" data-i="${i}" ${fin ? "disabled" : ""}><span class="l">${"ABCD"[i]}</span>${c ? `<span class="t">${fmt(c)}</span>` : ""}</button>${fin ? "" : `<button class="x ${isCut ? "on" : ""}" type="button" data-x="${i}" aria-label="Исключить вариант">${isCut ? "↺" : "✕"}</button>`}</div>`;
+      return `<div class="optw"><button class="opt ${cls} ${isCut ? "cut" : ""}" type="button" data-i="${i}" ${fin ? "disabled" : ""}><span class="l">${"ABCD"[i]}</span>${c ? `<span class="t">${c.split("\n").map(fmt).join("<br>")}</span>` : ""}</button>${fin ? "" : `<button class="x ${isCut ? "on" : ""}" type="button" data-x="${i}" aria-label="Исключить вариант">${isCut ? "↺" : "✕"}</button>`}</div>`;
     }).join("") + '</div>';
   } else {
     if (!(g && o.reveal !== false) && HINT.has(t.id) && o.hint !== false) h += `<div class="hint"><b>Подсказка.</b> ${fmt(firstLine(t))}</div>`;
@@ -619,22 +679,28 @@ function renderTask(){
   const g = given[cur.id];
   box.innerHTML = nav + list + `<div class="card">` + taskHtml(cur, g) + `<div id="res"></div>` + (g ? "" : `<div class="actions"><button class="btn sm ghost grow" type="button" id="skip">Пропустить →</button></div>`) + `</div>`;
   if (g) showResult(g.ok);
-  const gi = $("gi"); if (gi && !g) gi.focus({preventScroll: true});
+  const gi = $("gi"); if (gi && !g && matchMedia("(pointer:fine)").matches) gi.focus({preventScroll: true});
 }
 function showResult(ok){
   const t = cur;
   const g = given[t.id] || {};
   const extra = ok ? "" : "Правильный ответ: " + (t.c.length ? t.a : fmt(shownAnswer(t.a)));
   const tm = g.sec ? ` <span class="muted tick">⏱ ${fmtTime(Math.round(g.sec))}${g.hint ? " · с подсказкой" : ""}</span>` : "";
-  $("res").innerHTML = `<div class="res ${ok ? "ok" : "bad"}"><h3>${ok ? "Верно ✓" : "Неверно"} <span style="font-weight:500">${extra}</span>${tm}</h3>${explainHtml(t)}</div>
-    <div class="actions"><button class="btn grow" type="button" id="next">Следующая →</button></div>
+  const head = ok ? PRAISE[Math.floor(Math.random() * PRAISE.length)] : "Не страшно, разберём 👇";
+  $("res").innerHTML = `<div class="res ${ok ? "ok pop" : "bad"}"><h3>${head} <span style="font-weight:500">${extra}</span>${tm}</h3>${explainHtml(t)}</div>
+    <div class="actions stick"><button class="btn grow" type="button" id="next">Следующая →</button></div>
     <p class="muted" style="margin:10px 0 0;text-align:center;font-size:12px">Нашёл ошибку в задаче или разборе? <button class="lnk" type="button" id="report" style="font-size:12px">Сообщить</button></p>`;
 }
+const PRAISE = ["Верно! ✓", "Отлично! ✓", "Так держать! ✓", "Точно в цель 🎯", "Супер! ✓"];
 function answerCur(ok, pickVal){
   const sec = (Date.now() - shownAt) / 1000;
   answered = true; given[cur.id] = {pick: pickVal, ok, sec, hint: HINT.has(cur.id)};
+  const before = solvedToday();
   record(cur, ok, pickVal, false, sec);
   renderTask();
+  // результат и разбор — сразу в поле зрения (раньше на телефоне он оставался ниже экрана)
+  const rs = $("res"); if (rs) setTimeout(() => { const y = rs.getBoundingClientRect().top + scrollY - 12; if (rs.getBoundingClientRect().top > innerHeight * .55) scrollTo({top: y - innerHeight * .25, behavior: "smooth"}); }, 50);
+  if (ok && before < S.goal && solvedToday() >= S.goal) setTimeout(() => toast("Цель дня выполнена 🎉"), 400);
 }
 $("v-practice").addEventListener("click", e => {
   const x = e.target.closest(".x[data-x]"); if (x && cur && !answered) { toggleCut(cur.id, +x.dataset.x); renderTask(); return; }
@@ -654,7 +720,8 @@ function toggleMark(id){ const i = S.marks.indexOf(id); if (i >= 0) S.marks.spli
 function keyPress(k){
   const gi = $("gi"); if (!gi) return;
   if (k === "del") gi.value = gi.value.slice(0, -1); else gi.value += k;
-  gi.focus({preventScroll: true}); updPreview();
+  try { gi.focus({preventScroll: true}); const n = gi.value.length; gi.setSelectionRange(n, n); } catch(e) {}
+  updPreview();
 }
 function updPreview(){ const gi = $("gi"), pv = $("pv"); if (!gi || !pv) return; pv.innerHTML = gi.value.includes("/") ? fmt(gi.value.replace(/-/g, "−")) : ""; }
 document.addEventListener("input", e => { if (e.target.id === "gi") updPreview(); });
@@ -709,7 +776,11 @@ function startTest(){
   renderTest();
 }
 function testAnswer(v){ const t = T.qs[T.i]; T.ans[t.id] = v; T.sec[t.id] = (T.sec[t.id] || 0) + (Date.now() - T.at) / 1000; haptic(); if (T.i < T.qs.length - 1) { T.i++; renderTest(); } else renderTest(); }
+// введённый, но не подтверждённый «Ок» ответ раньше терялся при переходе к другой задаче
+function keepGrid(){ const gi = $("gi"), t = T && T.qs[T.i]; if (gi && t && !t.c.length && gi.value.trim()) { T.ans[t.id] = gi.value.trim(); T.sec[t.id] = (T.sec[t.id] || 0) + (Date.now() - T.at) / 1000; T.at = Date.now(); } }
+function askConfirm(msg, fn){ try { if (TG && TG.showConfirm) return TG.showConfirm(msg, ok => { if (ok) fn(); }); } catch(e) {} if (confirm(msg)) fn(); }
 function finishTest(){
+  if (!T || T.end) return;
   clearInterval(T.timer); T.end = Date.now();
   let ok = 0;
   for (const t of T.qs) {
@@ -725,7 +796,7 @@ function renderTestResult(){
   const n = T.qs.length, ok = T.qs.filter(t => T.res[t.id]).length, sec = Math.round((T.end - T.start) / 1000);
   let h = `<div class="card"><div class="score">${ok}/${n}<small>${ok === n ? "Идеально! 🎉" : ok >= n * 0.7 ? "Хорошо. Разбери ошибки ниже." : "Разбери ошибки — так и растёт балл."} · время ${fmtTime(sec)}</small></div>
     <div class="dots" style="justify-content:center">${T.qs.map((q, i) => `<button class="dot ${T.res[q.id] ? "ok" : "bad"} ${T.review === i ? "cur" : ""}" data-rv="${i}" type="button">${i + 1}</button>`).join("")}</div>
-    <div class="actions"><button class="btn ghost grow" type="button" id="tAgain">Ещё тест</button><button class="btn ghost grow" type="button" id="tShare">Поделиться</button><button class="btn grow" type="button" id="tHome">На главную</button></div></div>`;
+    <div class="tres"><button class="btn ghost" type="button" id="tAgain">Ещё тест</button><button class="btn ghost" type="button" id="tShare">Поделиться</button><button class="btn full" type="button" id="tHome">На главную</button></div></div>`;
   if (T.review !== null && T.review !== undefined) {
     const t = T.qs[T.review], a = T.ans[t.id], ok1 = T.res[t.id];
     h += `<div class="card">${taskHtml(t, a !== undefined ? {pick: a, ok: ok1} : null)}<div class="res ${ok1 ? "ok" : "bad"}" style="margin-top:14px"><h3>${ok1 ? "Верно ✓" : a === undefined ? "Без ответа" : "Неверно"} <span style="font-weight:500">${ok1 ? "" : "Правильный ответ: " + (t.c.length ? t.a : fmt(shownAnswer(t.a)))}</span></h3>${explainHtml(t)}</div></div>`;
@@ -736,9 +807,9 @@ $("v-test").addEventListener("click", e => {
   const l = e.target.closest("[data-tlen]"); if (l) { S.tlen = +l.dataset.tlen; save(); renderTest(); return; }
   if (!T) return;
   const o = e.target.closest(".opt"); if (o && !T.end) { if (o.classList.contains("cut")) { toggleCut(T.qs[T.i].id, +o.dataset.i); renderTest(); return; } testAnswer(+o.dataset.i); return; }
-  const d = e.target.closest("[data-ti]"); if (d) { T.i = +d.dataset.ti; renderTest(); return; }
-  if (e.target.closest("#tPrev")) { T.i--; renderTest(); return; }
-  if (e.target.closest("#tNext")) { if (T.i < T.qs.length - 1) { T.i++; renderTest(); } else if (confirm("Завершить тест?")) finishTest(); return; }
+  const d = e.target.closest("[data-ti]"); if (d) { keepGrid(); T.i = +d.dataset.ti; renderTest(); return; }
+  if (e.target.closest("#tPrev")) { keepGrid(); T.i--; renderTest(); return; }
+  if (e.target.closest("#tNext")) { keepGrid(); if (T.i < T.qs.length - 1) { T.i++; renderTest(); } else askConfirm("Завершить тест?", finishTest); return; }
   if (e.target.closest("#tFlag")) { const id = T.qs[T.i].id; T.flags.has(id) ? T.flags.delete(id) : T.flags.add(id); renderTest(); return; }
   const r = e.target.closest("[data-rv]"); if (r) { T.review = +r.dataset.rv; renderTestResult(); return; }
   if (e.target.closest("#tAgain")) { T = null; renderTest(); return; }
@@ -824,31 +895,70 @@ $("sheet").addEventListener("click", e => {
 
 /* ---------- server: leaderboard and admin ---------- */
 const ONLINE = !!(API && TG && TG.initData);
+const DIRTY = new Set();
 let syncTimer = null, BOARD = null, IS_ADMIN = false, ADM = null, admSel = null, boardMode = "week";
 async function api(path, body){
   const r = await fetch(API + path, {method:"POST", headers:{"Content-Type":"application/json"}, body: JSON.stringify(Object.assign({initData: TG.initData}, body || {}))});
   if (!r.ok) throw new Error(r.status);
   return r.json();
 }
+let FULL_SYNCED = false, SYNCING = false, OFFLINE = false;
 function syncNow(){
-  if (!ONLINE) return;
-  const ev = S.ev.slice();
-  api("/api/sync", {name: S.name, done: packDone(S.done), ev, streak: streakNow()}).then(b => { BOARD = b; IS_ADMIN = !!b.admin; S.ev = S.ev.filter(x => !ev.includes(x)); save(); if (VIEW === "board") renderBoard(); }).catch(() => {});
+  if (!ONLINE || SYNCING) return;
+  // первый обмен за сессию — весь прогресс (сервер сверит и вернёт своё), дальше только изменённые задачи
+  const full = !FULL_SYNCED, ids = [...DIRTY];
+  const sub = full ? S.done : Object.fromEntries(ids.filter(id => S.done[id]).map(id => [id, S.done[id]]));
+  const ev = S.ev.slice(); SYNCING = true;
+  api("/api/sync", {name: S.name, done: packDone(sub), ev, streak: streakNow(), full}).then(b => {
+    SYNCING = false; OFFLINE = false;
+    if (full) { FULL_SYNCED = true; if (b.mine) { const before = Object.keys(S.done).length; mergeDone(S.done, unpackDone(b.mine)); if (Object.keys(S.done).length !== before) { save(); if (VIEW === "home") renderHome(); } } }
+    ids.forEach(id => DIRTY.delete(id));
+    BOARD = b; IS_ADMIN = !!b.admin; const sent = new Set(ev); S.ev = S.ev.filter(x => !sent.has(x)); save();
+    if (VIEW === "board") renderBoard(); else if (VIEW === "home") updPlace();
+    if (DIRTY.size || S.ev.length) sendResult();
+  }).catch(() => { SYNCING = false; OFFLINE = true; if (VIEW === "board") renderBoard(); });
 }
 function sendResult(){ clearTimeout(syncTimer); syncTimer = setTimeout(syncNow, 1500); }
+// связь вернулась или ученик вернулся в приложение — досылаем то, что не ушло
+addEventListener("online", () => sendResult());
+document.addEventListener("visibilitychange", () => { if (!document.hidden && (DIRTY.size || S.ev.length || OFFLINE)) sendResult(); });
+const placeTxt = n => n + "-е место";
+function boardRows(list){
+  return (list || []).map(r => `<li class="${r.me ? "me" : ""}"><span class="pl ${r.place <= 3 ? "m" + r.place : ""}">${r.place}</span><span class="nm"><span class="nmt">${esc(r.name)}${r.me ? " (ты)" : ""}</span><span class="st">${r.streak ? "🔥 " + r.streak + " · " : ""}попыток ${r.tries}</span></span><b>${r.solved}</b></li>`).join("");
+}
 function renderBoard(){
   const box = $("v-board");
-  if (!ONLINE) { box.innerHTML = `<div class="card"><div class="empty">Рейтинг доступен внутри Telegram.</div></div>`; return; }
-  if (!BOARD) { box.innerHTML = `<div class="card"><div class="empty">Загружаю…</div></div>`; api("/api/board").then(b => { BOARD = b; IS_ADMIN = !!b.admin; renderBoard(); }).catch(() => { box.innerHTML = `<div class="card"><div class="empty">Не удалось загрузить рейтинг.</div></div>`; }); return; }
-  const list = boardMode === "week" ? BOARD.week : BOARD.top, me = boardMode === "week" ? BOARD.meWeek : BOARD.me;
-  const rows = (list || []).map(r => `<li class="${r.me ? "me" : ""}"><span class="pl">${r.place}</span><span class="nm">${esc(r.name)}<div class="st">${r.streak ? "🔥 " + r.streak + " · " : ""}попыток ${r.tries}</div></span><b>${r.solved}</b></li>`).join("");
-  box.innerHTML = `<div class="card"><h2>Рейтинг</h2><div class="seg"><button class="${boardMode === "week" ? "on" : ""}" data-bm="week" type="button">За 7 дней</button><button class="${boardMode === "all" ? "on" : ""}" data-bm="all" type="button">За всё время</button></div>
-    <p class="muted" style="margin:0 0 8px">Сколько разных задач решено верно. Участников: ${BOARD.total}</p>
+  if (!ONLINE) { box.innerHTML = `<div class="card"><div class="empty">Рейтинг доступен внутри Telegram: открой тренажёр через бота @MathMaks_SAT_bot.</div></div>`; return; }
+  if (!BOARD) {
+    box.innerHTML = `<div class="card"><div class="empty">${OFFLINE ? "Нет связи. Рейтинг появится, когда вернётся интернет." : "Загружаю…"}</div></div>`;
+    if (!OFFLINE) refreshBoard(); return;
+  }
+  const wk = boardMode === "week", list = wk ? BOARD.week : BOARD.top, me = wk ? BOARD.meWeek : BOARD.me, total = (wk ? BOARD.weekTotal : BOARD.total) || 0;
+  const g = BOARD.myGrowth || {now: 0, prev: 0}, d = g.now - g.prev;
+  // своё место — первым блоком, без прокрутки
+  const meCard = me
+    ? `<div class="mecard"><div><span class="muted">Твоё место ${wk ? "за 7 дней" : "за всё время"}</span><b>${placeTxt(me.place)} <small>из ${total}</small></b></div><div class="r"><b>${me.solved}</b><span class="muted">решено</span></div></div>`
+    : `<div class="mecard"><div><span class="muted">${wk ? "За 7 дней" : "За всё время"}</span><b style="font-size:17px">Реши одну задачу верно — и ты в списке</b></div></div>`;
+  const growth = `<div class="grow-c"><span>📈</span><div>${g.now || g.prev ? `За эту неделю решено <b>${g.now}</b>${g.prev ? `, за прошлую ${g.prev}` : ""}. ${d > 0 ? "Ты растёшь: +" + d + " 💪" : d === 0 ? "Держишь темп." : "Ещё есть время догнать себя."}` : "Здесь будет твой рост: сколько задач ты решил за неделю по сравнению с прошлой."}</div></div>`;
+  const best = (BOARD.growth || []).length ? `<div class="card"><h2>Лучший прогресс недели</h2><p class="muted" style="margin:0 0 6px">Кто прибавил больше всех по сравнению с прошлой неделей. Сюда может попасть любой.</p><ol class="lb">${BOARD.growth.map((r, i) => `<li class="${r.me ? "me" : ""}"><span class="pl">${["🥇","🥈","🥉"][i]}</span><span class="nm"><span class="nmt">${esc(r.name)}${r.me ? " (ты)" : ""}</span></span><b>+${r.d}</b></li>`).join("")}</ol></div>` : "";
+  const rows = boardRows(list);
+  box.innerHTML = `<div class="card"><div class="row" style="justify-content:space-between;margin-bottom:10px"><h2 style="margin:0">Рейтинг</h2><button class="btn sm ghost" type="button" id="bRef" aria-label="Обновить">↻</button></div><div class="seg"><button class="${wk ? "on" : ""}" data-bm="week" type="button">За 7 дней</button><button class="${!wk ? "on" : ""}" data-bm="all" type="button">За всё время</button></div>
+    ${meCard}${growth}
+    ${OFFLINE ? `<p class="muted" style="margin:8px 0 0">Нет связи — показан последний загруженный список.</p>` : ""}
+    <p class="muted" style="margin:12px 0 6px">Сколько разных задач решено верно. Поровну — одно место. Участников: ${total}</p>
     ${rows ? `<ol class="lb">${rows}</ol>` : `<div class="empty">Пока пусто. Реши первую задачу — и ты в таблице.</div>`}
-    ${me && !(list || []).some(r => r.me) ? `<p class="muted" style="margin:10px 0 0">Ты на ${me.place}-м месте · решено ${me.solved}</p>` : ""}</div>` +
+    ${total > (list || []).length ? `<p class="muted" style="margin:8px 0 0">Показаны первые ${(list || []).length} из ${total}.</p>` : ""}</div>${best}` +
     (IS_ADMIN ? `<div class="card"><h2>Админка</h2><div id="adm"></div></div>` : "");
   if (IS_ADMIN) renderAdmin();
 }
+let boardAt = 0;
+function refreshBoard(){
+  if (!ONLINE) return;
+  boardAt = Date.now();
+  api("/api/board").then(b => { BOARD = b; IS_ADMIN = !!b.admin; OFFLINE = false; if (VIEW === "board") renderBoard(); else if (VIEW === "home") updPlace(); })
+    .catch(() => { OFFLINE = true; if (VIEW === "board") renderBoard(); });
+}
+$("v-board").addEventListener("click", e => { if (e.target.closest("#bRef")) { haptic(); refreshBoard(); toast("Обновляю…"); } });
 $("v-board").addEventListener("click", e => { const b = e.target.closest("[data-bm]"); if (b) { boardMode = b.dataset.bm; renderBoard(); } });
 function userStats(u){
   const res = u.results.filter(r => byId[r[0]]);
@@ -901,14 +1011,18 @@ function startApp(){
 $("nf").addEventListener("submit", e => { e.preventDefault(); const n = $("ni").value.trim(); if (!n) return; S.name = n; save(); startApp(); });
 $("who").addEventListener("click", showName);
 if (TG) { try { TG.ready(); TG.expand(); } catch(e) {} }
+let LOADED = false;
 async function boot(){
-  if (!TASKS) { try { TASKS = await (await fetch(DATA_URL)).json(); } catch(e) { $("loading").textContent = "Не удалось загрузить задачи. Проверь интернет и открой заново."; return; } }
+  const slow = setTimeout(() => { $("loading").textContent = "Загружаю задачи… Интернет медленный, это может занять до минуты."; }, 4000);
+  if (!TASKS) { try { const r = await fetch(DATA_URL); if (!r.ok) throw 0; TASKS = await r.json(); } catch(e) { clearTimeout(slow); $("loading").innerHTML = `Не удалось загрузить задачи: нет интернета.<br><button class="btn" style="margin-top:14px" type="button" onclick="this.parentNode.textContent='Загружаю задачи…';boot()">Попробовать ещё раз</button>`; return; } }
+  clearTimeout(slow);
   TASKS.forEach(t => { byId[t.id] = t; });
-  await load();
+  if (!LOADED) { await load(); LOADED = true; }
   $("loading").hidden = true;
   S.name ? startApp() : showName();
 }
 boot();
+try { if ("serviceWorker" in navigator && (location.protocol === "https:" || location.hostname === "localhost")) navigator.serviceWorker.register("sw.js"); } catch(e) {}
 </script>
 </body>
 </html>
